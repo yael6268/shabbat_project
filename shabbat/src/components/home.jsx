@@ -9,7 +9,7 @@ export const Home = () => {
      
 <form action="onsumbit">
     <label htmlFor="time">זמן כניסת שבת</label><br />
-    <input type="text" id="time" /><br />
+    <input type="time" id="time" /><br />
     <label htmlFor="place">היכן נמצאים?</label><br />
     <select name="place" id="place">
         <option>בבית</option>
@@ -21,11 +21,8 @@ export const Home = () => {
         <option>2</option>
         <option>3</option>
     </select><br/>
-    <label htmlFor="hospitality">ארוח</label><br />
-    <select name="hospitality" id="hospitality">
-        <option>ארוח</option>
-        <option>לבד בבית</option>
-    </select><br />
+    <label htmlFor="hospitality">ארוח</label>
+ <input type="checkbox" /><br />
     <button>איפוס</button>
 </form>
     </>);
