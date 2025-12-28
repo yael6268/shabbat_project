@@ -20,7 +20,7 @@ export const Home = () => {
         <option>1</option>
         <option>2</option>
         <option>3</option>
-    </select><br />
+    </select><br/>
     <label htmlFor="hospitality">ארוח</label><br />
     <select name="hospitality" id="hospitality">
         <option>ארוח</option>
