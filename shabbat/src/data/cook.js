@@ -143,7 +143,7 @@ const DinnerWithGuests = [{
     name: "סלט תפוא",
     PreparationTime: '00:30',
     status: 'start'
-},,{
+},{
     id: 1028,
     name: "הרינג",
     PreparationTime: '00:25',

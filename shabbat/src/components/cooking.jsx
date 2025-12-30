@@ -4,7 +4,6 @@ export const Cooking = (props) => {
         <p>{cook.name}</p>
         <p>{cook.PreparationTime}</p>
         <p>{cook.status}</p>
-        <label htmlFor="isPrepared">מוכן  </label>
-        <input type="checkbox"/>
+        <label id="isPrepared">מוכן  </label>
     </li>
 }
