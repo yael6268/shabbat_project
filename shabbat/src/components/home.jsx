@@ -1,6 +1,6 @@
 
-// import { useState, useEffect } from 'react';
-
+import { useState, useEffect } from 'react';
+// import {BasicShoping} from "../data/shoping"
 
 export const Home = () => {
 
@@ -28,6 +28,11 @@ export const Home = () => {
             </select><br />
             <button>איפוס</button>
         </form>
+        {/* <button onClick="getBasicShoping()">הצגת רשימת קניות</button> */}
+        
     </>);
 
 }
+// getBasicShoping = () => {
+//     ShopingList()
+// }   
