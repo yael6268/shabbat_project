@@ -3,6 +3,12 @@ import { useState, useEffect } from 'react';
 // import {BasicShoping} from "../data/shoping"
 
 export const Home = () => {
+    const [shabbatDetails, setShabbatDetails] = useState({
+    time: "",
+    place: "בבית",
+    meals: "3",
+    hospitality: "לבד בבית"
+});
 
 
     return (<>
@@ -28,7 +34,7 @@ export const Home = () => {
             </select><br />
             <button>איפוס</button>
         </form>
-        {/* <button onClick="getBasicShoping()">הצגת רשימת קניות</button> */}
+ {/* <button onClick="getBasicShoping()">הצגת רשימת קניות</button> */}
         
     </>);
 
