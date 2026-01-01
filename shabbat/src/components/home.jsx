@@ -1,6 +1,5 @@
 
 import { useState, useEffect } from 'react';
-// import {BasicShoping} from "../data/shoping"
 
 export const Home = () => {
     const [shabbatDetails, setShabbatDetails] = useState({
@@ -9,15 +8,39 @@ export const Home = () => {
     meals: "3",
     hospitality: "לבד בבית"
 });
-
+  const [displayName, setDisplayName] = useState('');
+  const [time2, setTime2] = useState('');
+  const [inputVisible, setInputVisible] = useState(true);
+  
+ const handleInputBlur = () => {
+    
+    setDisplayName(time2);
+    setTime2('');
+  }
+const handleInputChange = (event) => {
+    setName(event.target.value)
+  }
+  const handleInputKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleInputBlur();
+    }
+  }
 
     return (<>
+{shabbatDetails.time && (
+  <h1>זמן הדלקת נרות: {shabbatDetails.time}</h1>
+)}            <label htmlFor="time">זמן כניסת שבת</label><br />
+           {   (<input type="time" name="timeShabbat" value={shabbatDetails.time}   onChange={(e) =>
+    setShabbatDetails({ ...shabbatDetails, time: e.target.value })
+  } onBlur={handleInputBlur} onKeyPress={handleInputKeyPress}  />)}
+           {/* {inputVisible && (<input type="time" name='timeShabbat' value={timeShabbat} onChange={handleInputChange} onBlur={handleInputBlur} onKeyPress={handleInputKeyPress}  />)} */}
 
         <form action="onsubmit">
-            <label htmlFor="text">פרשת השבוע</label>
-            <input type="text" id="text" /><br />
-            <label htmlFor="time">זמן כניסת שבת</label><br />
-            <input type="text" id="time" /><br />
+            {/* <label htmlFor="text">פרשת השבוע</label>
+            <input type="text" id="text" /><br /> */}
+           
+        {/* {!inputVisible && (<span onClick={() => setInputVisible(true)}>{displayName || 'הכנס זמן'}</span>)} */}
+            {/* <input type="text" id="time" /><br /> */}
             <label htmlFor="place">היכן נמצאים?</label><br />
             <select name="place" id="place">
                 <option id="inHome">בבית</option>
