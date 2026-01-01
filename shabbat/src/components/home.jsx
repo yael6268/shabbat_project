@@ -26,7 +26,7 @@ export const Home = () => {
             <label htmlFor="countmeal">כמות סעודות</label><br />
             <select name="countmeal" id="countmeal">
                 <option>1</option>
-                <option>2</option>
+       n         <option>2</option>
                 <option>3</option>
             </select><br />
             <label htmlFor="hospitality">ארוח</label><br />
