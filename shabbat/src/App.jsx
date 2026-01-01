@@ -8,6 +8,7 @@ import { TaskList } from "./components/taskList";
 // import { Cooking } from "./components/Cooking";
 
 import './App.css'
+import './shabbat.css'
 import { Shoping } from './components/shoping';
 
 function App() {
