@@ -168,7 +168,7 @@ const shopingForThirdMeal = [
         name: "עוגיות",
     }
 ];
-export { basicShoping };
+// export { basicShoping };
 export const getBasicShoping=()=>{
     return new Promise((resolve,reject) => {
         resolve(basicShoping);
@@ -192,3 +192,7 @@ export function getShopingForThirdMeal() {
 // export function getFullShopingList() {
 //     return basicShoping.concat(shopingForGuests, shopingForStayWithFamily, shopingForFirstMeal, shopingForSecondMeal, shopingForThirdMeal);
 // }
+export const addNewproduct = (p) => {
+    basicShoping.push(p);
+    return Promise.resolve([...basicShoping]);
+}
