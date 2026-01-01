@@ -7,7 +7,7 @@ export const CookList = () => {
     const [cookies, setCookies] = useState(getBasicCooking());
     return (<>
         <h1>המטעמים של שבת</h1>
-        <ul>
+        <ul className="cook-list centered-list">
 
             {cookies.map((c, i) => (
                 <li key={c.id}

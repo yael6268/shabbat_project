@@ -196,3 +196,32 @@ export const addNewproduct = (p) => {
     basicShoping.push(p);
     return Promise.resolve([...basicShoping]);
 }
+export const addNewproduct1 = (p) => {
+    shopingForFirstMeal.push(p);
+    return Promise.resolve([...shopingForFirstMeal]);
+}
+export const addNewproduct2 = (p) => {
+    shopingForSecondMeal.push(p);
+    return Promise.resolve([...shopingForSecondMeal]);
+}
+export const addNewproduct3 = (p) => {
+    shopingForThirdMeal.push(p);
+    return Promise.resolve([...shopingForThirdMeal]);
+}
+export const addNewproduct4 = (p) => {
+    shopingForStayWithFamily.push(p);
+    return Promise.resolve([...shopingForStayWithFamily]);
+}
+export const addNewproduct5 = (p) => {
+    shopingForGuests.push(p);
+    return Promise.resolve([...shopingForGuests]);
+}
+
+
+ 
+ const deleteProduct = (id) => setBasicShoping(prev => prev.filter(p => p.id !== id));
+ const deleteProduct1 = (id) => setShopingForFirstMeal(prev => prev.filter(p => p.id !== id));
+ const deleteProduct2 = (id) => setShopingForSecondMeal(prev => prev.filter(p => p.id !== id));
+ const deleteProduct3 = (id) => setShopingForThirdMeal(prev => prev.filter(p => p.id !== id));
+ const deleteProduct4 = (id) => setShopingForStayWithFamily(prev => prev.filter(p => p.id !== id));
+ const deleteProduct5 = (id) => setShopingForGuests(prev => prev.filter(p => p.id !== id));

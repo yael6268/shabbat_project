@@ -13,14 +13,16 @@ export const Home = () => {
 
     return (<>
 
-        <form action="onsumbit">
+        <form action="onsubmit">
+            <label htmlFor="text">פרשת השבוע</label>
+            <input type="text" id="text" /><br />
             <label htmlFor="time">זמן כניסת שבת</label><br />
             <input type="text" id="time" /><br />
             <label htmlFor="place">היכן נמצאים?</label><br />
             <select name="place" id="place">
                 <option id="inHome">בבית</option>
                 <option id="traveling">נוסעים</option>
-            </select><br/>
+            </select><br />
             <label htmlFor="countmeal">כמות סעודות</label><br />
             <select name="countmeal" id="countmeal">
                 <option>1</option>
@@ -32,13 +34,9 @@ export const Home = () => {
                 <option>ארוח</option>
                 <option>לבד בבית</option>
             </select><br />
-            <button>איפוס</button>
+            <button>קבל</button>
         </form>
- {/* <button onClick="getBasicShoping()">הצגת רשימת קניות</button> */}
         
     </>);
 
 }
-// getBasicShoping = () => {
-//     ShopingList()
-// }   

@@ -32,14 +32,13 @@ export const TaskList = () => {
 //   };
 
   return (
-    <div>
+    <div className="centered-list">
       <h2>Task List</h2>
-      <ul>
+      <ul className="task-list">
         {tasks.map(task => (
           <Tasks
             key={task.id}
             tas={task}
-           
             onToggle={() => toggleDone(task.id)}
           />
 
