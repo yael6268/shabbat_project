@@ -24,6 +24,8 @@ body {
   align-items: flex-start; /* start from top, keeps natural scroll */
   padding: 28px;
   box-sizing: border-box;
+  direction: rtl;  
+  text-align: right;
   background: radial-gradient(circle at 10% 10%, #fcfbf7 0%, var(--bg) 40%, #f6f7f9 100%);
 }
 
@@ -41,7 +43,7 @@ body {
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:12px;
+  gap:20px;
   padding-bottom:14px;
   border-bottom: 1px dashed rgba(0,0,0,0.03);
 }
@@ -124,7 +126,7 @@ ul.shop-list li.shop-item {
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:12px;
+  gap:20px;
 }
 
 ul.shop-list li.shop-item .item-left {

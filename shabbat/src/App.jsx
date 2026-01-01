@@ -5,11 +5,12 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Header } from './components/Header';
 import { ShopingList } from './components/ShopingList';
 import { TaskList } from "./components/taskList";
+import {AllShoping} from "./components/allShoping";
 // import { Cooking } from "./components/Cooking";
-
+import { Shoping } from './components/shoping';
 import './App.css'
 import './shabbat.css'
-import { Shoping } from './components/shoping';
+
 
 function App() {
   const [showbasics, setShowBasics] = useState(false);
@@ -20,7 +21,7 @@ function App() {
   // //  setShowBasics(false);
 
   // }
-  
+
   // const showbasicShoping = () => {
   //   ShopingList()
 
@@ -28,39 +29,39 @@ function App() {
   // const [count, setCount] = useState(0)
   return (
     <>
- <BrowserRouter>
-      <div className="app">
-        {/* Header יופיע בכל העמודים */}
-        <Header />
-        
-        {/* התוכן משתנה לפי הנתיב */}
-        <main className="main-content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/cook-list" element={<CookList />} />
-            <Route path="/shopping-list" element={<ShopingList  />} />
-            <Route path="/task-list" element={<TaskList  />} />
+      <BrowserRouter>
+        <div className="app">
+          {/* Header יופיע בכל העמודים */}
+          <Header />
 
-          </Routes>
-        </main>
-      </div>
-    </BrowserRouter>
-    
+          {/* התוכן משתנה לפי הנתיב */}
+          <main className="main-content">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/cook-list" element={<CookList />} />
+              <Route path="/shoping-list" element={<ShopingList />} />
+              <Route path="/task-list" element={<TaskList />} />
+              <Route path="/all-shoping" element={<AllShoping />} />
+            </Routes>
+          </main>
+        </div>
+      </BrowserRouter>
+
       {/* <Home/> */}
       {/* <CookList/> */}
       {/* <TaskList/> */}
       {/* <Cooking/> */}
-            {/* <Home /> */}
+      {/* <Home /> */}
       {/* <CookList /> */}
       <div>
-       {/* <button onClick={showbasicShoping}>{showbasics ? ' hide ' : ' show '} קניות בסיסיות </button> */}
-      {/* <Cooking/> */}</div>
+        {/* <button onClick={showbasicShoping}>{showbasics ? ' hide ' : ' show '} קניות בסיסיות </button> */}
+        {/* <Cooking/> */}</div>
       {/* {showbasics && <ShopingList showOnly={false} /> }  */}
-  
+
     </>
   )
 }
 
-    
 
- export default App
+
+export default App
