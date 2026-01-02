@@ -54,24 +54,26 @@ export const EditTask = () => {
     return (
         <div className="centered-list">
             <h2>משימות לשבת 🕯️🕯️</h2>
-      {Object.entries(groupedTasks).map(([place, tasksByPlace]) => (
-  <div key={place}>
-<h3>{placeNames[place]}</h3>
+            {Object.entries(groupedTasks).map(([place, tasksByPlace]) => (
+                <div key={place} className="group-box">
+                    <h3>{placeNames[place]}</h3>
 
-    <ul className="task-list">
-      {tasksByPlace.map(task => (
-        <Tasks
-          key={task.id}
-          task={task}
-          deleteTask={deleteTask}
-          updateTask={updateTask}
-          watchToEdit={watchToEdit}
-        />
-      ))}
-    </ul>
-    <br /><button onClick={() => addTask(place)}> ➕ משימה חדשה</button><br /><br />
-  </div>
-))}
+                    <ul className="task-list">
+                        {tasksByPlace.map(task => (
+                            <Tasks
+                                key={task.id}
+                                task={task}
+                                deleteTask={deleteTask}
+                                updateTask={updateTask}
+                                watchToEdit={watchToEdit}
+                            />
+                        ))}
+                    </ul>
+                    <div className="group-actions">
+                        <button onClick={() => addTask(place)}>➕ משימה חדשה</button>
+                    </div>
+                </div>
+            ))}
 
 
           

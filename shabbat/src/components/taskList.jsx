@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { getAllTasks } from "../data/task";
-import { Tasks2 } from "./Tasks";
+import { Tasks2 } from "./Tasks2";
 
 export const TaskList = () => {
   const [tasks, setTasks] = useState(getAllTasks());
