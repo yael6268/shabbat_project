@@ -32,7 +32,7 @@ body {
 .app {
   width: min(980px, 96%);
   margin: 0 auto;
-  padding: 28px;
+  padding: 40px;
   background: var(--panel);
   border-radius: calc(var(--radius) + 4px);
   box-shadow: 0 8px 30px rgba(22, 28, 36, 0.06), inset 0 1px 0 rgba(255,255,255,0.6);
@@ -215,3 +215,29 @@ input[type="text"], select {
 .shop-item button {
   flex: 0 0 auto;
 }
+
+/* Group box: wraps each place's tasks in a bordered card */
+
+.group-box {
+  border: 1px solid rgba(212,175,55,0.12); /* soft gold accent */
+  background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.75));
+  padding: 18px;
+  border-radius: var(--radius);
+  margin: 12px 0;
+  box-shadow: 0 8px 20px rgba(21, 28, 36, 0.04);
+  position: relative;
+}
+
+.group-box h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.05rem;
+}
+
+.group-actions {
+  display: flex;
+  justify-content: center; /* keep button on the right in RTL it will appear visually right */
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.group-box .task-list { margin: 8px 0; }
