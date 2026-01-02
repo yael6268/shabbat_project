@@ -11,7 +11,7 @@ export const CookList = () => {
 
             {cookies.map((c, i) => (
                 <li key={c.id}
-                    style={{ backgroundColor: c.isPrepared ? 'rgba(124, 246, 90, 1)' : '' }}>
+                   className={`cook-item ${c.isPrepared ? 'prepared' : ''}`}>
                     <Cooking cook={c} />
                     {console.log(c.isPrepared)}
                     <input type="checkbox"
