@@ -1,7 +1,9 @@
 import { use, useState, useEffect } from "react";
-import { getBasicShoping, getShopingForFirstMeal, getShopingForStayWithFamily, getShopingForGuests, getShopingForSecondMeal, getShopingForThirdMeal, addNewproduct,addNewproduct1,addNewproduct2,addNewproduct3,addNewproduct4,addNewproduct5 } from "../data/shoping"
+import { getBasicShoping, getShopingForFirstMeal, getShopingForStayWithFamily, getShopingForGuests, getShopingForSecondMeal, getShopingForThirdMeal, addNewproduct, addNewproduct1, addNewproduct2, addNewproduct3, addNewproduct4, addNewproduct5 } from "../data/shoping"
 import { Shoping } from "./shoping";
 import { nanoid } from 'nanoid';
+import { Link } from 'react-router-dom';
+
 // import { nanoid } from '../node_modules/nanoid/nanoid.js';
 export const ShopingList = ({ showOnly }) => {
     // const [shoping, setShoping] = useState([]);
@@ -139,7 +141,7 @@ export const ShopingList = ({ showOnly }) => {
         <ul className="shop-list centered-list">{basicShoping.map(s => <Shoping key={s.id} shoping={s} showOnly={showOnly} onDelete={deleteProduct} />)} </ul>
         <button className="btn secondary" onClick={() => setBasicShoping([])}>Delete</button>
         <form onSubmit={addproduct} className="card">
-            
+
             <input type="text" name="name" placeholder='הכנס שם מוצר' /> <br />
             <br />
             <button className="btn"> add new product </button>
@@ -163,36 +165,40 @@ export const ShopingList = ({ showOnly }) => {
             <input type="text" name="name" placeholder='הכנס שם מוצר' /> <br />
             <br />
             <button className="btn"> add new product </button>
-            </form>
+        </form>
 
-            <h3>קניות לסעודה שלישית</h3>
-            <ul className="shop-list centered-list">{ShopingForThirdMeal.map(s => <Shoping key={s.id} shoping={s} showOnly={showOnly} onDelete={deleteProduct3} />)} </ul>
+        <h3>קניות לסעודה שלישית</h3>
+        <ul className="shop-list centered-list">{ShopingForThirdMeal.map(s => <Shoping key={s.id} shoping={s} showOnly={showOnly} onDelete={deleteProduct3} />)} </ul>
         <button type="button" className="btn secondary" onClick={() => setShopingForThirdMeal([])}>Delete</button>
-            <form onSubmit={addproduct3} className="card">
-                <input type="text" name="name" placeholder='הכנס שם מוצר' /> <br />
-                <br />
-                <button className="btn"> add new product </button>
-            </form>
+        <form onSubmit={addproduct3} className="card">
+            <input type="text" name="name" placeholder='הכנס שם מוצר' /> <br />
+            <br />
+            <button className="btn"> add new product </button>
+        </form>
 
 
-            <h3>קניות לאירוח אצל משפחה</h3>
-            <ul className="shop-list centered-list">{ShopingForStayWithFamily.map(s => <Shoping key={s.id} shoping={s} showOnly={showOnly} onDelete={deleteProduct4} />)} </ul>
+        <h3>קניות לאירוח אצל משפחה</h3>
+        <ul className="shop-list centered-list">{ShopingForStayWithFamily.map(s => <Shoping key={s.id} shoping={s} showOnly={showOnly} onDelete={deleteProduct4} />)} </ul>
         <button type="button" className="btn secondary" onClick={() => setShopingForStayWithFamily([])}>Delete</button>
-            <form onSubmit={addproduct4} className="card">
-                <input type="text" name="name" placeholder='הכנס שם מוצר' /> <br />
-                            <br />
-                <button className="btn"> add new product </button>
-            </form>
+        <form onSubmit={addproduct4} className="card">
+            <input type="text" name="name" placeholder='הכנס שם מוצר' /> <br />
+            <br />
+            <button className="btn"> add new product </button>
+        </form>
 
 
-            <h3>קניות לאירוח אורחים</h3>
-            <ul className="shop-list centered-list">{ShopingForGuests.map(s => <Shoping key={s.id} shoping={s} showOnly={showOnly} onDelete={deleteProduct5} />)} </ul>
+        <h3>קניות לאירוח אורחים</h3>
+        <ul className="shop-list centered-list">{ShopingForGuests.map(s => <Shoping key={s.id} shoping={s} showOnly={showOnly} onDelete={deleteProduct5} />)} </ul>
         <button type="button" className="btn secondary" onClick={() => setShopingForGuests([])}>Delete</button>
-            <form onSubmit={addproduct5} className="card">
-                <input type="text" name="name" placeholder='הכנס שם מוצר' /> <br />
-                <br />
-                <button className="btn"> add new product </button>
-            </form>
-
-        </>);
+        <form onSubmit={addproduct5} className="card">
+            <input type="text" name="name" placeholder='הכנס שם מוצר' /> <br />
+            <br />
+            <button className="btn"> add new product </button>
+        </form>
+        <ul>
+        <li>
+            <Link to="/all-shoping"> להצגת כל המוצרים</Link>
+        </li>
+        </ul>
+    </>);
 }
