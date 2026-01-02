@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { getAllTasks } from "../data/task";
-import { Tasks } from "./Tasks";
+import { Tasks2 } from "./Tasks";
 
 export const TaskList = () => {
   const [tasks, setTasks] = useState(getAllTasks());
@@ -36,7 +36,7 @@ export const TaskList = () => {
       <h2>Task List</h2>
       <ul className="task-list">
         {tasks.map(task => (
-          <Tasks
+          <Tasks2
             key={task.id}
             tas={task}
             onToggle={() => toggleDone(task.id)}
@@ -45,7 +45,7 @@ export const TaskList = () => {
         ))}
       </ul>
           <h3>      סך הזמן של משימות שלא בוצעו: {tasks.filter(task => task.status === "pending")
-          .reduce((total, task) => (total + task.time)/60, 0)} דקות</h3>
+          .reduce((total, task) => (total + task.time), 0)} דקות</h3>
 
     </div>
     

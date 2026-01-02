@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Header } from './components/Header';
 import { ShopingList } from './components/ShopingList';
 import { TaskList } from "./components/taskList";
+import { EditTask } from "./components/editTask";
 // import { Cooking } from "./components/Cooking";
 
 import './App.css'
@@ -39,7 +40,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/cook-list" element={<CookList />} />
             <Route path="/shopping-list" element={<ShopingList  />} />
-            <Route path="/task-list" element={<TaskList  />} />
+            <Route path="/task-list" element={ <EditTask /> } />
 
           </Routes>
         </main>

@@ -1,40 +1,41 @@
 const tasksForShabbat = [
     {
         id: 1,
-        title: "לערוך את השולחן",
-        status: "start",
-        time: 20,
-        place: "atHome"
+        title: " לנקות את הבית",
+        status: "pending",
+        time: 90,
+        place: "basic"
     },
+
     {
         id: 2,
         title: "להכין את הנרות",
-        status: "start",
+        status: "pending",
         time: 10,
         place: "atHome"
     },
     {
         id: 3,
         title: "לצחצח נעליים",
-        status: "start",
+        status: "pending",
         time: 15,
         place: "basic"
     },
     {
         id: 4,
         title: " לפתוח בקבוקים",
-        status: "start",
+        status: "pending",
         time: 5,
         place: "atHome"
     },
-
     {
         id: 5,
-        title: " לנקות את הבית",
-        status: "start",
-        time: 90,
-        place: "basic"
+        title: "לערוך את השולחן",
+        status: "pending",
+        time: 20,
+        place: "atHome"
     },
+
 
 
     {
@@ -53,7 +54,7 @@ const tasksForShabbat = [
         place: "basic"
 
     },
-       {
+    {
         id: 8,
         title: "לנקות חלונות",
         status: "pending",
@@ -95,15 +96,15 @@ const tasksForShabbat = [
         place: "hospitality"
 
     },
-       {
-        id: 14,
+    {
+        id: 13,
         title: "לארוז מזוודה",
         status: "pending",
         time: 15,
         place: "traveling"
 
     },
- 
+
     {
         id: 14,
         title: "לזרוק את האשפה",
@@ -201,4 +202,7 @@ export const getHospitalityTasks = () => {
 }
 export const getTravelingTasks = () => {
     return tasksForShabbat.filter(task => task.place === "traveling");
+}
+export const getAtHomeTasks = () => {
+    return tasksForShabbat.filter(task => task.place === "atHome");
 }
