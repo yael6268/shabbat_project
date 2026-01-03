@@ -8,13 +8,6 @@ const tasksForShabbat = [
     },
 
     {
-        id: 2,
-        title: "להכין את הנרות",
-        status: "pending",
-        time: 10,
-        place: "atHome"
-    },
-    {
         id: 3,
         title: "לצחצח נעליים",
         status: "pending",
@@ -79,14 +72,7 @@ const tasksForShabbat = [
 
     },
 
-    {
-        id: 11,
-        title: "לגהץ בגדים",
-        status: "pending",
-        time: 30,
-        place: "basic"
 
-    },
 
     {
         id: 12,
@@ -114,29 +100,7 @@ const tasksForShabbat = [
 
     },
 
-    {
-        id: 15,
-        title: "להתקלח",
-        status: "pending",
-        time: 25,
-        place: "basic"
 
-    }, {
-        id: 16,
-        title: "להתלבש",
-        status: "pending",
-        time: 15,
-        place: "basic"
-
-    },
-    {
-        id: 17,
-        title: "להתאפר",
-        status: "pending",
-        time: 20,
-        place: "basic"
-
-    },
     {
         id: 18,
         title: "להתפלל מנחה",
