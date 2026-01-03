@@ -43,13 +43,13 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/cook-list" element={<CookList />} />
               <Route path="/shoping-list" element={<ShopingList />} />
+              <Route path="/edit-tasks" element={<TaskList selectPlace="atHome" />} />
               <Route path="/task-list" element={<EditTask />} />
               <Route path="/all-shoping" element={<AllShoping />} />
             </Routes>
           </main>
         </div>
       </BrowserRouter>
-
       {/* <Home/> */}
       {/* <CookList/> */}
       {/* <TaskList/> */}
