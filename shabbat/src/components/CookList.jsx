@@ -13,7 +13,6 @@ export const CookList = () => {
                 <li key={c.id}
                     style={{ backgroundColor: c.isPrepared ? 'rgba(124, 246, 90, 1)' : '' }}>
                     <Cooking cook={c} />
-                    {console.log(c.isPrepared)}
                     <input type="checkbox"
                         checked={c.isPrepared}
                         onChange={() => {
@@ -23,9 +22,6 @@ export const CookList = () => {
                         }} />
                 </li>
             ))}
-
-
-
         </ul>
     </>)
 }

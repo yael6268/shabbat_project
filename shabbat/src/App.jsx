@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Home} from './components/Home'
 import { CookList } from "./components/CookList";
+import { EditCook } from "./components/EditCook";
 // import { Cooking } from "./components/Cooking";
 
 import './App.css'
@@ -12,6 +13,7 @@ function App() {
     <>
       <Home/>
       <CookList/>
+      <EditCook/>
       {/* <Cooking/> */}
     </>
   )
