@@ -1,0 +1,241 @@
+/* Shabbat theme - gentle festive palette with silver and gold accents */
+:root{
+  --bg:#f7fafc; /* very light cool */
+  --panel:#ffffff; /* clean panel */
+  --text:#102a43; /* deep navy */
+  --muted:#52697a; /* muted slate */
+  --gold:#d4af37; /* kept for accents */
+  --silver:#cbd5dc;
+  --accent:#2b6f77; /* soft teal */
+  --glass: rgba(255,255,255,0.6);
+  --radius:10px;
+  --royal:#2b6f77; /* muted teal */
+  --muted-royal:#6aa6a8;
+}
+
+/* Base layout */
+html, body, #root {
+  height: 100%;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 24px;
+  box-sizing: border-box;
+  direction: rtl;
+  text-align: right;
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.app {
+  width: min(980px, 96%);
+  margin: 0 auto;
+  padding: 28px;
+  background: var(--panel);
+  border-radius: calc(var(--radius) + 4px);
+  box-shadow: 0 6px 18px rgba(16,42,67,0.04);
+  border: 1px solid rgba(16,42,67,0.04);
+}
+
+.header {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding-bottom:14px;
+  border-bottom: 1px dashed rgba(0,0,0,0.03);
+}
+
+.header .brand {
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.brand .logo {
+  width:56px;
+  height:56px;
+  border-radius:8px;
+  background: linear-gradient(135deg, rgba(43,111,119,0.12), rgba(106,166,168,0.06));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  color:var(--panel);
+}
+
+h1 {
+  margin:0 0 8px 0;
+  font-size:1.9rem;
+  color:var(--text);
+}
+
+h3 { color:var(--accent); margin-top:18px }
+
+.main-content { 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding:18px 0;
+  text-align:center; 
+}
+
+/* Center main content and list containers */
+.centered-list {
+  max-width:760px;
+  margin: 12px auto;
+  padding: 8px;
+}
+
+/* Cards and lists */
+.card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.3));
+  border-radius:var(--radius);
+  padding:16px;
+  margin-bottom:12px;
+  box-shadow: 0 6px 18px rgba(21, 28, 36, 0.04);
+  border:1px solid rgba(33,37,41,0.03);
+}
+
+ul.shop-list, ul.task-list, ul.cook-list {
+  list-style:none;
+  padding:0;
+  margin:12px auto 20px auto;
+  max-width:720px;
+}
+
+/* Force removal of bullets and left padding if present */
+ul.shop-list, ul.shop-list li, ul.shop-list li.shop-item {
+  list-style: none !important;
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+}
+
+ul.shop-list {
+  list-style: none;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+ul.shop-list li.shop-item {
+  list-style: none;
+  padding-left: 0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+
+ul.shop-list li.shop-item .item-left {
+  display:flex !important;
+  align-items:center !important;
+  gap:12px !important;
+  flex:1 1 auto;
+}
+
+ul.shop-list li.shop-item .item-name { 
+  margin:0;
+  font-size:1rem;
+  text-align:left;
+  color:var(--text);
+  white-space:nowrap !important; /* keep on one line */
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+}
+
+/* Ensure button and name are inline and not wrapped */
+ul.shop-list li.shop-item button, ul.task-list li button, ul.cook-list li button {
+  flex:0 0 auto;
+  margin-left:12px;
+}
+
+/* On very small screens allow stacking */
+@media (max-width:420px){
+  ul.shop-list li, ul.task-list li, ul.cook-list li { flex-wrap:wrap }
+  ul.shop-list li .item-left { width:100%; justify-content:flex-start }
+  ul.shop-list li button { margin-left:0; margin-top:0 }
+}
+
+/* Forms and inputs */
+form { 
+  max-width:720px; 
+  width: 100%;
+  margin: 12px auto;
+  text-align: center; /* center labels and inputs */
+}
+form .form-row { 
+  display:flex; 
+  gap:8px; 
+  align-items:center; 
+  justify-content:center;
+}
+input[type="text"], select {
+  width: 80%;
+  max-width: 520px;
+  padding:10px 12px;
+  margin: 8px auto; /* center input */
+  display:block;
+  border-radius:8px;
+  border:1px solid rgba(33,37,41,0.06);
+  background: rgba(255,255,255,0.6);
+}
+
+/* Small decorative details */
+.separator { height:1px; background: linear-gradient(90deg, rgba(212,175,55,0.12), rgba(191,198,203,0.04)); margin:14px 0 }
+
+.footer-note { font-size:0.88rem; color:var(--muted); margin-top:18px }
+
+/* Responsive */
+@media (max-width:640px){
+  input[type="text"], select { width: 100%; }
+  .app { padding: 16px }
+  ul.shop-list li, ul.task-list li, ul.cook-list li { align-items: center }
+}
+
+/* שומר שהכפתור והשם יהיו באותה שורה ומוסיף רווח ביניהם */
+.item-left {
+  display: flex;
+  align-items: center;
+  gap: 70px;        /* רווח בין הכפתור לשם */
+  flex-wrap: nowrap;/* לא לשבור לשורה חדשה */
+  min-width: 0;     /* מאפשר קיצוץ טקסט במקום שבירה */
+}
+
+/* אם רוצים שקיצוץ יקרה במקום שבירה */
+.shop-item .item-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* אלמנט הכפתור לא יתכווץ ויישאר בצד */
+.shop-item button {
+  flex: 0 0 auto;
+}
+
+/* Group box: wraps each place's tasks in a bordered card */
+.group-box {
+  border: 1px solid rgba(33,37,41,0.06);
+  background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.65));
+  padding: 22px;
+  border-radius: 10px;
+  margin: 12px 0;
+  box-shadow: 0 6px 18px rgba(21, 28, 36, 0.03);
+}
+
+.group-box h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.05rem;
+}
+
+.group-actions {
+  display: flex;
+  justify-content: center; /* keep button on the right in RTL it will appear visually right */
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.group-box .task-list { margin: 8px 0; }
