@@ -34,9 +34,9 @@ function App() {
   // const [count, setCount] = useState(0)
   return (
     <>
-      <Home/>
+      {/* <Home/>
       <CookList/>
-      <EditCook/>
+      <EditCook/> */}
       <BrowserRouter>
         <div className="app">
           {/* Header יופיע בכל העמודים */}
@@ -47,6 +47,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/cook-list" element={<CookList />} />
+              <Route path="/edit-cook" element={<EditCook />} />
               <Route path="/shoping-list" element={<ShopingList />} />
               <Route path="/edit-tasks" element={<TaskList selectPlace="atHome" />} />
               <Route path="/task-list" element={<EditTask />} />
