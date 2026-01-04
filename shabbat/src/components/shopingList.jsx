@@ -56,7 +56,6 @@ export const ShopingList = ({ showOnly }) => {
   // פונקציה כללית להוספת מוצר
   const handleAddProduct = async (event, addFunc, setFunc) => {
     event.preventDefault();
-
     const newProduct = {
       id: nanoid(),
       name: event.target.name.value,
