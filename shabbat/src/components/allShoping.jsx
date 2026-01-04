@@ -36,7 +36,7 @@ export default function ShopingList({ showOnly }) {
         }
     }
 
-    useEffect(() => {
+    useEffect(() => {   
         loadshop();
     }, []);
     return (<>

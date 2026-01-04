@@ -1,204 +1,231 @@
-import { use, useState, useEffect } from "react";
-import { getBasicShoping, getShopingForFirstMeal, getShopingForStayWithFamily, getShopingForGuests, getShopingForSecondMeal, getShopingForThirdMeal, addNewproduct, addNewproduct1, addNewproduct2, addNewproduct3, addNewproduct4, addNewproduct5 } from "../data/shoping"
+import { useState, useEffect } from "react";
+import {
+  getBasicShoping,
+  getShopingForFirstMeal,
+  getShopingForSecondMeal,
+  getShopingForThirdMeal,
+  getShopingForStayWithFamily,
+  getShopingForGuests,
+  addNewproduct,
+  addNewproduct1,
+  addNewproduct2,
+  addNewproduct3,
+  addNewproduct4,
+  addNewproduct5,
+} from "../data/shoping";
+
 import { Shoping } from "./shoping";
-import { nanoid } from 'nanoid';
-import { Link } from 'react-router-dom';
+import { nanoid } from "nanoid";
+import { Link } from "react-router-dom";
 
-// import { nanoid } from '../node_modules/nanoid/nanoid.js';
 export const ShopingList = ({ showOnly }) => {
-    // const [shoping, setShoping] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
-    const [basicShoping, setBasicShoping] = useState([]);
-    const [ShopingForFirstMeal, setShopingForFirstMeal] = useState([]);
-    const [ShopingForStayWithFamily, setShopingForStayWithFamily] = useState([]);
-    const [ShopingForGuests, setShopingForGuests] = useState([]);
-    const [ShopingForSecondMeal, setShopingForSecondMeal] = useState([]);
-    const [ShopingForThirdMeal, setShopingForThirdMeal] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  const [basicShoping, setBasicShoping] = useState([]);
+  const [ShopingForFirstMeal, setShopingForFirstMeal] = useState([]);
+  const [ShopingForSecondMeal, setShopingForSecondMeal] = useState([]);
+  const [ShopingForThirdMeal, setShopingForThirdMeal] = useState([]);
+  const [ShopingForStayWithFamily, setShopingForStayWithFamily] = useState([]);
+  const [ShopingForGuests, setShopingForGuests] = useState([]);
+
+  // איזה טופס פתוח כרגע
+  const [openForm, setOpenForm] = useState(null);
+
+  useEffect(() => {
     const loadshop = async () => {
-        setLoading(true);
-        try {
-            const basicShoping = await getBasicShoping();
-            setBasicShoping(basicShoping);
-            const ShopingForFirstMeal = await getShopingForFirstMeal();
-            setShopingForFirstMeal(ShopingForFirstMeal);
-            const ShopingForStayWithFamily = await getShopingForStayWithFamily();
-            setShopingForStayWithFamily(ShopingForStayWithFamily);
-            const ShopingForGuests = await getShopingForGuests();
-            setShopingForGuests(ShopingForGuests);
-            const ShopingForSecondMeal = await getShopingForSecondMeal();
-            setShopingForSecondMeal(ShopingForSecondMeal);
-            const ShopingForThirdMeal = await getShopingForThirdMeal();
-            setShopingForThirdMeal(ShopingForThirdMeal);
-        } catch (error) {
-            console.log('error in loading', error);
-            setError(true);
-        } finally {
-            setLoading(false);
+      setLoading(true);
+      try {
+        setBasicShoping(await getBasicShoping());
+        setShopingForFirstMeal(await getShopingForFirstMeal());
+        setShopingForSecondMeal(await getShopingForSecondMeal());
+        setShopingForThirdMeal(await getShopingForThirdMeal());
+        setShopingForStayWithFamily(await getShopingForStayWithFamily());
+        setShopingForGuests(await getShopingForGuests());
+      } catch (err) {
+        console.log(err);
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadshop();
+  }, []);
+
+  // פונקציה כללית להוספת מוצר
+  const handleAddProduct = async (event, addFunc, setFunc) => {
+    event.preventDefault();
+
+    const newProduct = {
+      id: nanoid(),
+      name: event.target.name.value,
+    };
+
+    event.target.reset();
+
+    const updatedList = await addFunc(newProduct);
+    setFunc(updatedList);
+
+    setOpenForm(null);
+  };
+
+  if (loading) return <p>טוען...</p>;
+  if (error) return <p>אירעה שגיאה</p>;
+
+  return (
+    <>
+      <h1>רשימת הקניות לשבת</h1>
+
+      {/* ===== קניות בסיסיות ===== */}
+      <Section
+        title="קניות בסיסיות"
+        items={basicShoping}
+        onDelete={(id) =>
+          setBasicShoping((prev) => prev.filter((p) => p.id !== id))
         }
-    }
+        openForm={openForm}
+        setOpenForm={setOpenForm}
+        formKey="basic"
+        onAdd={(e) => handleAddProduct(e, addNewproduct, setBasicShoping)}
+        showOnly={showOnly}
+      />
 
-    useEffect(() => {
-        loadshop();
-    }, []);
-    const addproduct = async (event) => {
-        event.preventDefault();
-        const newproduct = {
-            name: event.target.name.value,
-            id: nanoid(),
+      {/* ===== סעודה ראשונה ===== */}
+      <Section
+        title="קניות לסעודה ראשונה"
+        items={ShopingForFirstMeal}
+        onDelete={(id) =>
+          setShopingForFirstMeal((prev) => prev.filter((p) => p.id !== id))
         }
-        event.target.reset();
-
-        const newproducts = await addNewproduct(newproduct);
-
-        setBasicShoping(newproducts);
-
-
-    }
-    const addproduct1 = async (event) => {
-        event.preventDefault();
-        const newproduct = {
-            name: event.target.name.value,
-            id: 100,
+        openForm={openForm}
+        setOpenForm={setOpenForm}
+        formKey="first"
+        onAdd={(e) =>
+          handleAddProduct(e, addNewproduct1, setShopingForFirstMeal)
         }
-        event.target.reset();
+        showOnly={showOnly}
+      />
 
-        const newproducts = await addNewproduct1(newproduct);
-
-        setShopingForFirstMeal(newproducts);
-
-
-    }
-    const addproduct2 = async (event) => {
-        event.preventDefault();
-        const newproduct = {
-            name: event.target.name.value,
-            id: 100,
+      {/* ===== סעודה שניה ===== */}
+      <Section
+        title="קניות לסעודה שניה"
+        items={ShopingForSecondMeal}
+        onDelete={(id) =>
+          setShopingForSecondMeal((prev) => prev.filter((p) => p.id !== id))
         }
-        event.target.reset();
-
-        const newproducts = await addNewproduct2(newproduct);
-
-        setShopingForSecondMeal(newproducts);
-
-
-    }
-    const addproduct3 = async (event) => {
-        event.preventDefault();
-        const newproduct = {
-            name: event.target.name.value,
-            id: 100,
+        openForm={openForm}
+        setOpenForm={setOpenForm}
+        formKey="second"
+        onAdd={(e) =>
+          handleAddProduct(e, addNewproduct2, setShopingForSecondMeal)
         }
-        event.target.reset();
+        showOnly={showOnly}
+      />
 
-        const newproducts = await addNewproduct3(newproduct);
-
-        setShopingForThirdMeal(newproducts);
-
-
-    }
-    const addproduct4 = async (event) => {
-        event.preventDefault();
-        const newproduct = {
-            name: event.target.name.value,
-            id: 100,
+      {/* ===== סעודה שלישית ===== */}
+      <Section
+        title="קניות לסעודה שלישית"
+        items={ShopingForThirdMeal}
+        onDelete={(id) =>
+          setShopingForThirdMeal((prev) => prev.filter((p) => p.id !== id))
         }
-        event.target.reset();
-
-        const newproducts = await addNewproduct4(newproduct);
-
-        setShopingForStayWithFamily(newproducts);
-
-
-    }
-    const addproduct5 = async (event) => {
-        event.preventDefault();
-        const newproduct = {
-            name: event.target.name.value,
-            id: nanoid,
+        openForm={openForm}
+        setOpenForm={setOpenForm}
+        formKey="third"
+        onAdd={(e) =>
+          handleAddProduct(e, addNewproduct3, setShopingForThirdMeal)
         }
-        event.target.reset();
+        showOnly={showOnly}
+      />
 
-        const newproducts = await addNewproduct5(newproduct);
+      {/* ===== אירוח משפחה ===== */}
+      <Section
+        title="קניות לאירוח אצל משפחה"
+        items={ShopingForStayWithFamily}
+        onDelete={(id) =>
+          setShopingForStayWithFamily((prev) =>
+            prev.filter((p) => p.id !== id)
+          )
+        }
+        openForm={openForm}
+        setOpenForm={setOpenForm}
+        formKey="family"
+        onAdd={(e) =>
+          handleAddProduct(e, addNewproduct4, setShopingForStayWithFamily)
+        }
+        showOnly={showOnly}
+      />
 
-        setShopingForGuests(newproducts);
+      {/* ===== אורחים ===== */}
+      <Section
+        title="קניות לאירוח אורחים"
+        items={ShopingForGuests}
+        onDelete={(id) =>
+          setShopingForGuests((prev) => prev.filter((p) => p.id !== id))
+        }
+        openForm={openForm}
+        setOpenForm={setOpenForm}
+        formKey="guests"
+        onAdd={(e) =>
+          handleAddProduct(e, addNewproduct5, setShopingForGuests)
+        }
+        showOnly={showOnly}
+      />
 
+      <Link to="/all-shoping">להצגת כל המוצרים</Link>
+    </>
+  );
+};
 
-    }
+// ================= קומפוננטת עזר =================
+const Section = ({
+  title,
+  items,
+  onDelete,
+  openForm,
+  setOpenForm,
+  formKey,
+  onAdd,
+  showOnly,
+}) => (
+  <>
+    <h3>{title}</h3>
 
-    // local delete handlers - update component state when child calls onDelete
-    const deleteProduct = (id) => setBasicShoping(prev => prev.filter(p => p.id !== id));
-    const deleteProduct1 = (id) => setShopingForFirstMeal(prev => prev.filter(p => p.id !== id));
-    const deleteProduct2 = (id) => setShopingForSecondMeal(prev => prev.filter(p => p.id !== id));
-    const deleteProduct3 = (id) => setShopingForThirdMeal(prev => prev.filter(p => p.id !== id));
-    const deleteProduct4 = (id) => setShopingForStayWithFamily(prev => prev.filter(p => p.id !== id));
-    const deleteProduct5 = (id) => setShopingForGuests(prev => prev.filter(p => p.id !== id));
+    <ul className="shop-list centered-list">
+      {items.map((s) => (
+        <Shoping
+          key={s.id}
+          shoping={s}
+          showOnly={showOnly}
+          onDelete={onDelete}
+        />
+      ))}
+    </ul>
 
-    return (<>
-        <h1>  רשימת הקניות לשבת</h1>
+    <button className="btn" onClick={() => setOpenForm(formKey)}>
+      הוספת מוצר
+    </button>
 
-        <h3>קניות בסיסיות</h3>
-        <ul className="shop-list centered-list">{basicShoping.map(s => <Shoping key={s.id} shoping={s} showOnly={showOnly} onDelete={deleteProduct} />)} </ul>
-        <button className="btn secondary" onClick={() => setBasicShoping([])}>Delete</button>
-        <form onSubmit={addproduct} className="card">
-
-            <input type="text" name="name" placeholder='הכנס שם מוצר' /> <br />
-            <br />
-            <button className="btn"> add new product </button>
-        </form>
-
-
-        <h3>קניות לסעודה ראשונה</h3>
-        <ul className="shop-list centered-list">{ShopingForFirstMeal.map(s => <Shoping key={s.id} shoping={s} showOnly={showOnly} onDelete={deleteProduct1} />)} </ul>
-        <button className="btn secondary" onClick={() => setShopingForFirstMeal([])}>Delete</button>
-        <form onSubmit={addproduct1} className="card">
-            <input type="text" name="name" placeholder='הכנס שם מוצר' /> <br />
-            <br />
-            <button className="btn"> add new product </button>
-        </form>
-
-
-        <h3>קניות לסעודה שניה</h3>
-        <ul className="shop-list centered-list">{ShopingForSecondMeal.map(s => <Shoping key={s.id} shoping={s} showOnly={showOnly} onDelete={deleteProduct2} />)} </ul>
-        <button className="btn secondary" onClick={() => setShopingForSecondMeal([])}>Delete</button>
-        <form onSubmit={addproduct2} className="card">
-            <input type="text" name="name" placeholder='הכנס שם מוצר' /> <br />
-            <br />
-            <button className="btn"> add new product </button>
-        </form>
-
-        <h3>קניות לסעודה שלישית</h3>
-        <ul className="shop-list centered-list">{ShopingForThirdMeal.map(s => <Shoping key={s.id} shoping={s} showOnly={showOnly} onDelete={deleteProduct3} />)} </ul>
-        <button type="button" className="btn secondary" onClick={() => setShopingForThirdMeal([])}>Delete</button>
-        <form onSubmit={addproduct3} className="card">
-            <input type="text" name="name" placeholder='הכנס שם מוצר' /> <br />
-            <br />
-            <button className="btn"> add new product </button>
-        </form>
-
-
-        <h3>קניות לאירוח אצל משפחה</h3>
-        <ul className="shop-list centered-list">{ShopingForStayWithFamily.map(s => <Shoping key={s.id} shoping={s} showOnly={showOnly} onDelete={deleteProduct4} />)} </ul>
-        <button type="button" className="btn secondary" onClick={() => setShopingForStayWithFamily([])}>Delete</button>
-        <form onSubmit={addproduct4} className="card">
-            <input type="text" name="name" placeholder='הכנס שם מוצר' /> <br />
-            <br />
-            <button className="btn"> add new product </button>
-        </form>
-
-
-        <h3>קניות לאירוח אורחים</h3>
-        <ul className="shop-list centered-list">{ShopingForGuests.map(s => <Shoping key={s.id} shoping={s} showOnly={showOnly} onDelete={deleteProduct5} />)} </ul>
-        <button type="button" className="btn secondary" onClick={() => setShopingForGuests([])}>Delete</button>
-        <form onSubmit={addproduct5} className="card">
-            <input type="text" name="name" placeholder='הכנס שם מוצר' /> <br />
-            <br />
-            <button className="btn"> add new product </button>
-        </form>
-        <ul>
-        <li>
-            <Link to="/all-shoping"> להצגת כל המוצרים</Link>
-        </li>
-        </ul>
-    </>);
-}
+    {openForm === formKey && (
+      <form className="card" onSubmit={onAdd}>
+        <input
+          type="text"
+          name="name"
+          placeholder="הכנס שם מוצר"
+          required
+        />
+        <br />
+        <br />
+        <button className="btn">שמור</button>
+        <button
+          type="button"
+          className="btn secondary"
+          onClick={() => setOpenForm(null)}
+        >
+          ביטול
+        </button>
+      </form>
+    )}
+  </>
+);

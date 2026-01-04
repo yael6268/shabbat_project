@@ -13,7 +13,7 @@ export const Header = () => {
                         <Link to="/">עמוד הבית</Link>
                     </li>
                     <li>
-                        <Link to="/cook-list">רשימת בישול</Link>
+                        <Link to="/edit-cook">רשימת בישול</Link>
                     </li>
                     <li>
                         <Link to="/shoping-list">רשימת קניות</Link>

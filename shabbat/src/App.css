@@ -1,47 +1,185 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+:root {
+  --primary-color: #fdfbf7; /* רקע קרם בהיר מאוד */
+  --accent-color: #d4af37;  /* זהב עדין לחגיגיות */
+  --text-color: #4a4a4a;    /* אפור כהה רך */
+  --secondary-bg: #ffffff;  /* לבן נקי */
+  --border-radius: 12px;
+  --shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+body {
+  background-color: var(--primary-color);
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color: var(--text-color);
+  line-height: 1.6;
+  direction: rtl;
+  border-bottom: 1px solid #f2e6d5;
+}
+
+h1, h2, h3 {
+  color: var(--accent-color);
   text-align: center;
+  font-weight: 300;
+  letter-spacing: 1px;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* עיצוב רשימות */
+.centered-list {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 0;
+  list-style: none;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+ /* מרכוז הקונטיינר הראשי */
+.centered-list {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important; /* ממרכז את כל ה-li לאמצע העמוד */
+  justify-content: center !important;
+  width: 100% !important;
+  padding: 0 !important;
+  list-style: none !important;
+  margin: 0 auto !important;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* עיצוב כל שורה (li) */
+.shop-list li, .cook-list li, .task-list li {
+  display: flex !important;
+  flex-direction: row !important; /* שם וצ'קבוקס בשורה אחת */
+  justify-content: center !important; /* זה מה שממרכז אותם לאמצע השורה */
+  align-items: center !important;
+  gap: 20px !important; /* רווח בין השם לכפתור */
+  
+  width: 100% !important;
+  max-width: 500px !important; /* שומר על רשימה אלגנטית ולא רחבה מדי */
+  background: #ffffff !important;
+  margin-bottom: 12px !important;
+  padding: 15px 25px !important;
+  border-radius: 15px !important;
+  
+  /* הגבול הזהוב החגיגי */
+  border-bottom: 2px solid #f2e6d5 !important;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.03) !important;
 }
 
+/* ביטול כל יישור לשמאל או לימין של טקסט */
+.shop-list li *, .centered-list h1, .centered-list h2, .centered-list h3 {
+  text-align: center !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+}
+
+/* מרכוז כפתור הוספת מוצר */
+.btn {
+  display: block !important;
+  margin: 20px auto !important; /* ממרכז את הכפתור עצמו */
+  padding: 10px 30px !important;
+}
+.shop-list.row-center li {
+  flex-direction: row;
+  gap: 15px; /* רווח בין השם לכפתור */
+  justify-content: center;
+}
+.centered-list {
+  padding: 0;
+  margin: 0 auto;
+  max-width: 600px;
+  list-style-type: none;
+  text-align: center; /* ממרכז טקסט וכותרות */
+}
+/* 2. עיצוב פריט הרשימה (li) */
+.shop-list li, .cook-list li, .task-list li {
+  display: flex;
+  flex-direction: row;    /* שומר על השם והצ'קבוקס באותה שורה */
+  justify-content: center; /* ממרכז את התוכן אופקית */
+  align-items: center;     /* ממרכז את התוכן אנכית */
+  gap: 15px;               /* רווח קבוע בין השם לכפתור/צ'קבוקס */
+  
+  background: #ffffff;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  
+  width: 100%;             /* מבטיח שהפריט יתפוס את כל רוחב הקונטיינר */
+  box-sizing: border-box;
+}
+
+/* 3. וידוא ששם המוצר עצמו לא דוחף שמאלה */
+.shop-list li span, 
+.shop-list li p,
+.shop-list li div {
+  margin: 0;
+  text-align: center;
+  flex-grow: 0; /* מונע מהטקסט לתפוס את כל השטח ולדחוף את הכפתור */
+}
+.shop-list li span, .shop-list li div {
+  margin-bottom: 1px;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+.shop-list li:hover {
+  transform: translateY(-2px);
+}
+.cook-list li.prepared {
+    background-color: #f0fff4 !important; /* ירוק בהיר מאוד */
+    border-right: 6px solid #81c784 !important; /* פס ירוק עדין בצד */
+    border-bottom: 2px solid #81c784 !important; /* משנה גם את הפס התחתון לירוק */
+    transition: background-color 0.3s ease;
+}
+
+/* מוודא שהטקסט בפנים נשאר קריא */
+.cook-list li.prepared * {
+    color: #2e7d32;
+}
+/* עיצוב כפתורים */
+.btn {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  display: block;
+  margin: 15px auto;
+}
+
+.btn:hover {
+  opacity: 0.9;
+  box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3);
+}
+
+.btn.secondary {
+  background-color: transparent;
+  color: #999;
+  border: 1px solid #ddd;
+}
+
+/* עיצוב כרטיסי הוספה (Forms) */
 .card {
-  padding: 2em;
+  background: white;
+  padding: 25px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  max-width: 400px;
+  margin: 20px auto;
+  border-top: 4px solid var(--accent-color);
 }
 
-.read-the-docs {
-  color: #888;
+input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  outline: none;
 }
 
-/* Space below fixed header so content isn't hidden */
-.main-content {
-  padding-top: 70px;
+input[type="checkbox"] {
+  accent-color: var(--accent-color);
+  width: 18px;
+  height: 18px;
 }
