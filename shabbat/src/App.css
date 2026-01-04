@@ -40,3 +40,8 @@
 .read-the-docs {
   color: #888;
 }
+
+/* Space below fixed header so content isn't hidden */
+.main-content {
+  padding-top: 70px;
+}

@@ -51,7 +51,7 @@ export const TaskList = ({ selectPlace }) => {
       <h3>
         סך הזמן של משימות שלא בוצעו: {timeText}
       </h3>
-            <div style={{ marginTop: 8 }}>
+      <div style={{ marginTop: 8 }}>
         <Link to="/task-list" style={{ textDecoration: 'none', color: 'var(--royal)', fontWeight: 600 }}>עריכת משימות</Link>
 
       </div>

@@ -4,7 +4,7 @@ export const Tasks = ({ task, deleteTask, updateTask, watchToEdit }) => {
       {!task.isEditing ? (
         <>
           <span>{task.title}</span><br />
-<span>{task.time} דקות</span><br />
+          <span>{task.time} דקות</span><br />
           <button onClick={() => watchToEdit(task.id)}>✏️ עריכה</button>
           <button onClick={() => deleteTask(task.id)}>🗑️ מחק</button><br /><br />
         </>
@@ -37,23 +37,5 @@ export const Tasks = ({ task, deleteTask, updateTask, watchToEdit }) => {
         </>
       )}
     </li>
-  );
-};
-export const Tasks2 = ({ task, onToggle }) => {
-  return (
-    <li>
-      <span>{task.title}</span> - <span>{task.time} דקות</span>{" "}
-
-
-      <label >
-        בוצע:
-        <input
-          type="checkbox"
-          checked={task.status === "done"}
-          onChange={onToggle}
-        />
-      </label>
-    </li>
-
   );
 };

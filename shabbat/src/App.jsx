@@ -5,9 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Header } from './components/Header';
 import { ShopingList } from './components/ShopingList';
 import { TaskList } from "./components/taskList";
-
 import { EditTask } from "./components/editTask";
-
 import {AllShoping} from "./components/allShoping";
 // import { Cooking } from "./components/Cooking";
 import { Shoping } from './components/shoping';
@@ -18,16 +16,12 @@ import './shabbat.css'
 function App() {
   const [showbasics, setShowBasics] = useState(false);
   // const [showbasicShoping, setShowbasicShoping] = useState(false);
-
   // const showbasicShoping = () => {
   //   setShowBasics(!showbasics);
   // //  setShowBasics(false);
-
   // }
-
   // const showbasicShoping = () => {
   //   ShopingList()
-
   // }
   // const [count, setCount] = useState(0)
   return (
@@ -36,14 +30,13 @@ function App() {
         <div className="app">
           {/* Header יופיע בכל העמודים */}
           <Header />
-
           {/* התוכן משתנה לפי הנתיב */}
           <main className="main-content">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/cook-list" element={<CookList />} />
               <Route path="/shoping-list" element={<ShopingList />} />
-              <Route path="/edit-tasks" element={<TaskList selectPlace="atHome" />} />
+              <Route path="/edit-tasks" element={<TaskList selectPlace="travel" />} />
               <Route path="/task-list" element={<EditTask />} />
               <Route path="/all-shoping" element={<AllShoping />} />
             </Routes>
