@@ -1,6 +1,7 @@
 import { use, useState } from "react";
 import { getBasicCooking } from "../data/cook"
 import { Cooking } from "./Cooking";
+import { Link } from 'react-router-dom';
 // import { Home } from "./Home";
 // import { home } from "/home"2
 export const CookList = () => {
@@ -11,7 +12,7 @@ export const CookList = () => {
 
             {cookies.map((c, i) => (
                 <li key={c.id}
-                   className={`cook-item ${c.isPrepared ? 'prepared' : ''}`}>
+                    className={`cook-item ${c.isPrepared ? 'prepared' : ''}`}>
                     <Cooking cook={c} />
                     <input type="checkbox"
                         checked={c.isPrepared}
@@ -22,6 +23,11 @@ export const CookList = () => {
                         }} />
                 </li>
             ))}
+        </ul>
+        <ul>
+            <li>
+                {/* <Link to="/edit-cook">  לחזרה לעריכת מוצרים</Link> */}
+            </li>
         </ul>
     </>)
 }
