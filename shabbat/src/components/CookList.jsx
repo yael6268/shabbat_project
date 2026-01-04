@@ -13,7 +13,6 @@ export const CookList = () => {
                 <li key={c.id}
                    className={`cook-item ${c.isPrepared ? 'prepared' : ''}`}>
                     <Cooking cook={c} />
-                    {console.log(c.isPrepared)}
                     <input type="checkbox"
                         checked={c.isPrepared}
                         onChange={() => {
@@ -23,9 +22,6 @@ export const CookList = () => {
                         }} />
                 </li>
             ))}
-
-
-
         </ul>
     </>)
 }
