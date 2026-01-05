@@ -51,6 +51,7 @@ const BasicCooking = [{
     status: 'start'
 }]
 const firstMeal = [{
+    type: "סעודה ראשונה",
     id: 1010,
     name: "דגים",
     PreparationTime: '00:15',
@@ -82,6 +83,7 @@ const firstMeal = [{
     status: 'start'
 }]
 const secondMeal = [{
+    type: "סעודה שניה",
     id: 1016,
     name: "ביצים",
     PreparationTime: '00:15',
@@ -103,6 +105,7 @@ const secondMeal = [{
     status: 'start'
 }]
 const thirdMeal = [{
+    type: "סעודה שלישית",
     id: 1020,
     name: "טונה",
     PreparationTime: '00:06',
@@ -124,26 +127,27 @@ const thirdMeal = [{
     status: 'start'
 }]
 const DinnerWithGuests = [{
+    type: "סעודה עם אורחים",
     id: 1024,
     name: "סלט חצילים עם בטטה",
     PreparationTime: '00:20',
     status: 'start'
-},{
+}, {
     id: 1025,
     name: "דג סלומון",
     PreparationTime: '00:20',
     status: 'start'
-},{
+}, {
     id: 1026,
     name: "בשר",
     PreparationTime: '00:20',
     status: 'start'
-},{
+}, {
     id: 1027,
     name: "סלט תפוא",
     PreparationTime: '00:30',
     status: 'start'
-},{
+}, {
     id: 1028,
     name: "הרינג",
     PreparationTime: '00:25',
@@ -155,7 +159,7 @@ export const getBasicCooking = () => {
 export const getFirstMeal = () => {
     return firstMeal;
 }
-export const getSecondMeal = () =>{
+export const getSecondMeal = () => {
     return secondMeal;
 }
 export const getThirdMeal = () => {
