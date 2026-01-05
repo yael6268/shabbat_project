@@ -1,13 +1,25 @@
-export const Shoping = (props) => {
-    const { shoping, showOnly, onDelete } = props;
-    return (
-        <li className="shop-item">
-            <div className="item-left">
-                <button type="button" className="btn danger" onClick={() => onDelete && onDelete(shoping.id)}>מחק</button>
-                {shoping.name}
-                {/* {showOnly && <p>{shoping.showOnly}</p>} */}
-            </div>
-        </li>
-    );
-}
 
+export const Shoping = ({ shoping, onDelete, onUpdate, onEditToggle }) => {
+  return (
+    <li className="shop-item">
+      {!shoping.isEditing ? (
+        <>
+          <span>{shoping.name}</span><br />
+          <button onClick={() => onEditToggle(shoping.id)}>✏️ עריכה</button>
+          <button onClick={() => onDelete(shoping.id)}>🗑️ מחק</button>
+          <br /><br />
+        </>
+      ) : (
+        <>
+          <input
+            type="text"
+            value={shoping.name}
+            onChange={(e) => onUpdate(shoping.id, "name", e.target.value)}
+            placeholder="שם מוצר"
+          />
+          <button onClick={() => onEditToggle(shoping.id)}>💾 שמירה</button>
+        </>
+      )}
+    </li>
+  );
+};

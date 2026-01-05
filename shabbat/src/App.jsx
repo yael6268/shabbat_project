@@ -5,12 +5,12 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Header } from './components/Header';
 import { ShopingList } from './components/ShopingList';
 import { TaskList } from "./components/taskList";
-
+import { EditShoping } from './components/editShoping';
 import { EditTask } from "./components/editTask";
 
 import {AllShoping} from "./components/allShoping";
 // import { Cooking } from "./components/Cooking";
-import { Shoping } from './components/shoping';
+// import { Shoping } from './components/shoping';
 import './App.css'
 import './shabbat.css'
 
@@ -44,6 +44,7 @@ function App() {
               <Route path="/cook-list" element={<CookList />} />
               <Route path="/shoping-list" element={<ShopingList />} />
               <Route path="/edit-tasks" element={<TaskList selectPlace="atHome" />} />
+              <Route path="/edit-shoping" element={<EditShoping selectPlace="basic" />} />
               <Route path="/task-list" element={<EditTask />} />
               <Route path="/all-shoping" element={<AllShoping />} />
             </Routes>
