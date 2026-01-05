@@ -8,7 +8,7 @@ import { TaskList } from "./components/taskList";
 import { EditShoping } from './components/editShoping';
 import { EditTask } from "./components/editTask";
 
-import {AllShoping} from "./components/allShoping";
+// import {AllShoping} from "./components/allShoping";
 // import { Cooking } from "./components/Cooking";
 // import { Shoping } from './components/shoping';
 import './App.css'
@@ -46,7 +46,7 @@ function App() {
               <Route path="/edit-tasks" element={<TaskList selectPlace="atHome" />} />
               <Route path="/edit-shoping" element={<EditShoping selectPlace="basic" />} />
               <Route path="/task-list" element={<EditTask />} />
-              <Route path="/all-shoping" element={<AllShoping />} />
+              {/* <Route path="/all-shoping" element={<AllShoping />} /> */}
             </Routes>
           </main>
         </div>

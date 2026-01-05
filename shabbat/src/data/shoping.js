@@ -146,7 +146,7 @@ const ShopingForShabbat = [
     },
     {
         id: 29,
-        name: "כבד קצוץ",
+        name: "כבד ",
         type:"second"
     },
     {

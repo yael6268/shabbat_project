@@ -20,7 +20,7 @@ export const ShopingList = ({ selectType }) => {
         return shopings.filter(s => s.type === "basic" || s.type === "third" );
           case "guest":
         return shopings.filter(s => s.type === "basic" || s.type === "second"||s.type === "third" ||s.type === "first" ||s.type === "guest"  );
-         case "guest":
+         case "stay":
         return shopings.filter(s => s.type === "basic" || s.type === "stay"  );
       default:
         return shopings;
