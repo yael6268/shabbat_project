@@ -24,4 +24,27 @@
 
 .nav-menu a {
   text-decoration: none;
-  /* Header styles were merged into src/App.css; this file is intentionally left blank. */
+  color: var(--text-color);
+  font-weight: 500;
+  position: relative;
+  transition: color 0.3s;
+}
+
+.nav-menu a:hover {
+  color: var(--accent-color);
+}
+
+.nav-menu a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -5px;
+  right: 0;
+  background-color: var(--accent-color);
+  transition: width 0.3s;
+}
+
+.nav-menu a:hover::after {
+  width: 100%;
+}

@@ -22,8 +22,13 @@ export const Tasks = ({ task, deleteTask, updateTask, cancelEdit }) => {
         <>
           <span>{task.title}</span><br />
           <span>{task.time} דקות</span><br />
+<<<<<<< HEAD
           <button onClick={() => setIsEditing(true)}>✏️ עריכה</button>
           <button onClick={() => deleteTask(task.id)}>🗑️ מחק</button>
+=======
+          <button onClick={() => watchToEdit(task.id)}>✏️ עריכה</button>
+          <button onClick={() => deleteTask(task.id)}>🗑️ מחק</button><br /><br />
+>>>>>>> e20ddbd3047d9a62530525a5be0eca6887bfa41c
         </>
       ) : (
         <>
