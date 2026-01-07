@@ -208,7 +208,7 @@ form .form-row {
   justify-content: center;
 }
 
-input[type="text"],
+input[type="text"],input[type="number"],
 select {
   width: 80%;
   max-width: 520px;
@@ -238,6 +238,7 @@ select {
 @media (max-width:640px) {
 
   input[type="text"],
+  input[type="number"],
   select {
     width: 100%;
   }
@@ -302,4 +303,10 @@ select {
 
 .group-box .task-list {
   margin: 8px 0;
+}
+
+#buttons{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }

@@ -34,7 +34,7 @@ export const TaskList = ({ selectPlace }) => {
     .reduce((total, task) => total + task.time, 0);
   const hours = Math.floor(totalPending / 60);
   const minutes = totalPending % 60;
-  const timeText = hours === 0 ? `${minutes} דקות` : minutes === 0 ? `${hours} שעות` : `${hours}:${minutes} `;
+  const timeText = hours === 0 ? `${minutes} דקות` : minutes === 0 ? `${hours} שעות` : minutes < 10 ? `${hours}:0${minutes}` : `${hours}:${minutes}`;
 
   return (
     <div className="centered-list">

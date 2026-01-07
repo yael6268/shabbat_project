@@ -4,26 +4,31 @@ import { getAllTasks } from "../data/task";
 import { Tasks } from "./Tasks";
 import { nanoid } from 'nanoid';
 
-
 export const EditTask = () => {
-    const [tasks, setTasks] = useState(getAllTasks())
+    const [tasks, setTasks] = useState(getAllTasks());
 
-    //delete
+    // מחיקת משימה
     const deleteTask = (id) => {
         setTasks(tasks.filter(t => t.id !== id));
     };
-    //update
-    const updateTask = (id, field, value) => {
-        setTasks(tasks.map(t =>
-            t.id === id ? { ...t, [field]: value } : t
-        ));
+
+    // עדכון משימה שלמה
+    const updateTask = (updatedTask) => {
+        setTasks(tasks.map(t => t.id === updatedTask.id ? updatedTask : t));
     };
-    const watchToEdit = (id) => {
-        setTasks(tasks.map(t =>
-            t.id === id ? { ...t, isEditing: !t.isEditing } : t
-        ));
+
+    // ביטול עריכה
+    const cancelEdit = (task) => {
+        if (task.isNew) {
+            // אם המשימה חדשה, נמחקת
+            deleteTask(task.id);
+        } else {
+            // אחרת מחזירים את הערכים המקוריים
+            setTasks(tasks.map(t => t.id === task.id ? { ...task.original } : t));
+        }
     };
-    //add
+
+    // הוספת משימה חדשה
     const addTask = (place) => {
         const newTask = {
             id: nanoid(),
@@ -31,18 +36,20 @@ export const EditTask = () => {
             time: 0,
             place,
             status: "pending",
-            isEditing: true
+            isEditing: true,
+            isNew: true,
+            original: null
         };
         setTasks([...tasks, newTask]);
     };
 
-
-
+    // קיבוץ לפי מקום
     const groupedTasks = tasks.reduce((groups, task) => {
         if (!groups[task.place]) groups[task.place] = [];
         groups[task.place].push(task);
         return groups;
     }, {});
+
     const placeNames = {
         basic: "רשימת משימות בסיסית 📋",
         atHome: "רשימת משימות בבית 🏠",
@@ -50,15 +57,12 @@ export const EditTask = () => {
         hospitality: "רשימת משימות כשמארחים 💐"
     };
 
-
     return (
         <div className="centered-list">
             <h2>משימות לשבת 🕯️🕯️</h2>
-
             {Object.entries(groupedTasks).map(([place, tasksByPlace]) => (
                 <div key={place} className="group-box">
                     <h3>{placeNames[place]}</h3>
-
                     <ul className="task-list">
                         {tasksByPlace.map(task => (
                             <Tasks
@@ -66,7 +70,7 @@ export const EditTask = () => {
                                 task={task}
                                 deleteTask={deleteTask}
                                 updateTask={updateTask}
-                                watchToEdit={watchToEdit}
+                                cancelEdit={cancelEdit}
                             />
                         ))}
                     </ul>
@@ -75,13 +79,11 @@ export const EditTask = () => {
                     </div>
                 </div>
             ))}
-
             <div style={{ marginTop: 8 }}>
-                <Link to="/edit-tasks" style={{ textDecoration: 'none', color: 'var(--royal)', fontWeight: 600 }}>לרשימת משימות</Link>
+                <Link to="/edit-tasks" style={{ textDecoration: 'none', color: 'var(--royal)', fontWeight: 600 }}>
+                    לרשימת משימות
+                </Link>
             </div>
-
         </div>
-    )
-
-}
-
+    );
+};

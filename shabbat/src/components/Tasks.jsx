@@ -1,40 +1,60 @@
-export const Tasks = ({ task, deleteTask, updateTask, watchToEdit }) => {
+import { useState } from "react";
+
+export const Tasks = ({ task, deleteTask, updateTask, cancelEdit }) => {
+  const [isEditing, setIsEditing] = useState(task.isEditing || false);
+  const [localTask, setLocalTask] = useState({...task,
+    original: task.original || { ...task } // שמירה של ערכים מקוריים
+  });
+
+  const handleSave = () => {
+    updateTask({ ...localTask, isEditing: false, isNew: false });
+    setIsEditing(false);
+  };
+
+  const handleCancel = () => {
+    cancelEdit(localTask);
+    setIsEditing(false);
+  };
+
   return (
     <li>
-      {!task.isEditing ? (
+      {!isEditing ? (
         <>
           <span>{task.title}</span><br />
           <span>{task.time} דקות</span><br />
-          <button onClick={() => watchToEdit(task.id)}>✏️ עריכה</button>
-          <button onClick={() => deleteTask(task.id)}>🗑️ מחק</button><br /><br />
+          <button onClick={() => setIsEditing(true)}>✏️ עריכה</button>
+          <button onClick={() => deleteTask(task.id)}>🗑️ מחק</button>
         </>
       ) : (
         <>
+      <form className="card">
           <input
-            value={task.title}
-            onChange={e => updateTask(task.id, "title", e.target.value)}
+            type="text"
+            value={localTask.title}
+            onChange={e => setLocalTask({ ...localTask, title: e.target.value })}
             placeholder="שם משימה"
           />
-          <br />
           <input
             type="number"
-            value={task.time}
-            onChange={e =>
-              updateTask(task.id, "time", Number(e.target.value))
-            }
+            value={localTask.time}
+            onChange={e => setLocalTask({ ...localTask, time: Number(e.target.value) })}
             placeholder="זמן בדקות"
           />
           <select
-            value={task.place}
-            onChange={e => updateTask(task.id, "place", e.target.value)}
+            value={localTask.place}
+            onChange={e => setLocalTask({ ...localTask, place: e.target.value })}
           >
             <option value="basic">בסיסי</option>
             <option value="atHome">בבית</option>
             <option value="traveling">נסיעות</option>
             <option value="hospitality">אירוח</option>
           </select>
-          <button onClick={() => watchToEdit(task.id)}>💾 שמירה</button><br />
-        </>
+          </form>
+          <div id="buttons">
+          <button onClick={handleSave} id="save">💾 שמירה</button>
+          <button onClick={handleCancel} id="cancel">❌ ביטול</button>
+</div>
+       </>
       )}
     </li>
   );

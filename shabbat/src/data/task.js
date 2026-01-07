@@ -6,7 +6,6 @@ const tasksForShabbat = [
         time: 90,
         place: "basic"
     },
-
     {
         id: 3,
         title: "לצחצח נעליים",
@@ -28,9 +27,6 @@ const tasksForShabbat = [
         time: 20,
         place: "atHome"
     },
-
-
-
     {
         id: 6,
         title: "לכבס בגדים",
@@ -62,7 +58,6 @@ const tasksForShabbat = [
         place: "basic"
 
     },
-
     {
         id: 10,
         title: "לקרוא פרשת השבוע",
@@ -71,9 +66,6 @@ const tasksForShabbat = [
         place: "basic"
 
     },
-
-
-
     {
         id: 12,
         title: "לארגן מיטות לאורחים",
@@ -90,7 +82,6 @@ const tasksForShabbat = [
         place: "traveling"
 
     },
-
     {
         id: 14,
         title: "לזרוק את האשפה",
@@ -99,8 +90,6 @@ const tasksForShabbat = [
         place: "basic"
 
     },
-
-
     {
         id: 18,
         title: "להתפלל מנחה",
@@ -124,14 +113,16 @@ const tasksForShabbat = [
         time: 15,
         place: "atHome"
 
-    }, {
+    }, 
+    {
         id: 21,
         title: "להעביר לגנרטור",
         status: "pending",
         time: 10,
         place: "atHome"
 
-    }, {
+    },
+     {
         id: 22,
         title: "לכבות טלפונים",
         status: "pending",
@@ -146,7 +137,8 @@ const tasksForShabbat = [
         time: 15,
         place: "atHome"
 
-    }, {
+    },
+     {
         id: 24,
         title: "להדליק נרות שבת",
         status: "pending",
@@ -154,19 +146,19 @@ const tasksForShabbat = [
         place: "basic"
 
     }
-];
-export const getBasicTasks = () => {
-    return tasksForShabbat.filter(task => task.place === "basic");
-}
+]; 
 export const getAllTasks = () => {
     return tasksForShabbat;
 }
-export const getHospitalityTasks = () => {
-    return tasksForShabbat.filter(task => task.place === "hospitality");
-}
-export const getTravelingTasks = () => {
-    return tasksForShabbat.filter(task => task.place === "traveling");
-}
-export const getAtHomeTasks = () => {
-    return tasksForShabbat.filter(task => task.place === "atHome");
-}
+// export const getHospitalityTasks = () => {
+//     return tasksForShabbat.filter(task => task.place === "hospitality");
+// }
+// export const getTravelingTasks = () => {
+//     return tasksForShabbat.filter(task => task.place === "traveling");
+// }
+// export const getAtHomeTasks = () => {
+//     return tasksForShabbat.filter(task => task.place === "atHome");
+// }
+// export const getBasicTasks = () => {
+//     return tasksForShabbat.filter(task => task.place === "basic");
+// }
