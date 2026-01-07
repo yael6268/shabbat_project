@@ -4,7 +4,7 @@ export const Tasks = ({ task, deleteTask, updateTask, watchToEdit }) => {
       {!task.isEditing ? (
         <>
           <span>{task.title}</span><br />
-<span>{task.time} דקות</span><br />
+          <span>{task.time} דקות</span><br />
           <button onClick={() => watchToEdit(task.id)}>✏️ עריכה</button>
           <button onClick={() => deleteTask(task.id)}>🗑️ מחק</button><br /><br />
         </>
