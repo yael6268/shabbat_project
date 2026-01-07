@@ -25,9 +25,9 @@ export const CookList = () => {
             ))}
         </ul>
         <ul>
-            <li>
-                {/* <Link to="/edit-cook">  לחזרה לעריכת מוצרים</Link> */}
-            </li>
+            
+                <Link to="/edit-cook">לחזרה לעריכת מוצרים</Link>
         </ul>
     </>)
 }
+export default CookList;

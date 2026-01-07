@@ -38,72 +38,88 @@ export const EditCook = () => {
     const isAddCookFunc = () => {
         setIsAddCook(true);
     }
-    const addCook = (event) => {
+    const addCook = (event,type) => {
         setIsAddCook(false);
         event.preventDefault();
-        console.log(event, event.target);
+        console.log("type:",type);
+        console.log("event:",event);        
         const newCook = {
             id: nanoid(),
             name: event.target.elements.cookName.value,
             PreparationTime: event.target.elements.PreparationTime.value === "" ? '00:00' : event.target.elements.PreparationTime.value,
             status: 'start',
-            type: 'NewCook'
+            type: type
         };
         setCookies([...cookies, newCook]);
         event.target.reset();
     }
+    const groupedCooks = cookies.reduce((groups, cook) => {
+        if (!groups[cook.type]) groups[cook.type] = [];
+        groups[cook.type].push(cook);
+        return groups;
+    }, {});
     return (<>
         <h1>רשימת המטעמים של שבת </h1>
-        <ul>
-            {cookies.map((c, i) => (
-                <li key={c.id}>
-                    <Cooking cookName={editingId === c.id ? editingId : c} cook={c} />
-                    <button onClick={() => deleteCook(c)}>מחק</button>
-                    <div>
-                        {editingId === c.id ? (
+        {Object.entries(groupedCooks).map(([type, cooksByType]) => (
+            <div key={type} className="group-box">
+                <h3>{type}</h3>
+                <ul className="cook-list centered-list">
+                    {cooksByType.map((c, i) => (
+                        <li key={c.id}>
+                            <Cooking cookName={editingId === c.id ? editingId : c} cook={c} />
                             <div>
-                                <input
-                                    type="text"
-                                    value={editData?.name ?? ""}
-                                    onChange={(e) => handleChange("name", e.target.value)}
-                                />
-                                <button onClick={handleSaveClick}>שמור</button>
-                                <button onClick={handleCancelClick}>ביטול</button>
+                                {editingId === c.id ? (
+                                    <div>
+                                        <input
+                                            type="text"
+                                            value={editData?.name ?? ""}
+                                            onChange={(e) => handleChange("name", e.target.value)}
+                                        />
+                                        <input
+                                            type="time"
+                                            value={editData?.PreparationTime ?? ""}
+                                            onChange={(e) => handleChange("PreparationTime", e.target.value)}
+                                        />
+                                        <button onClick={handleSaveClick}>שמור</button>
+                                        <button onClick={handleCancelClick}>ביטול</button>
+                                    </div>
+                                ) : (
+                                    <div>
+                                        <button onClick={() => deleteCook(c)}> מחק</button> <br />
+                                        <button onClick={() => handleEditClick(c)}>עריכה</button>
+                                    </div>
+                                )}
                             </div>
-                        ) : (
-                            <div>
-                                <button onClick={() => handleEditClick(c)}>עריכה</button>
-                            </div>
-                        )}
-                    </div>
-                    {/* <button onClick={() => addCook(c, addNewCook)}>הוסף תבשיל</button> */}
-                </li>
+                            {/* <button onClick={() => addCook(c, addNewCook)}>הוסף תבשיל</button> */}
+                        </li>
 
-            ))}
-        </ul>
-        <div>
-            {isAddCook ?
-                <form onSubmit={addCook}>
-                    <input
-                        type="text"
-                        name="cookName"
-                        placeholder="הכנס שם תבשיל"
-                       
-                    />
-                    <input
-                        type="time"
-                        name="PreparationTime"
-                        placeholder="הכנס זמן הכנה בדקות"
-                       
-                    />
-                    <br />
-                    <button type="submit">שמירה </button>
-                    <button onClick={() => setIsAddCook(false)}>ביטול </button>
-                </form> : null}
-            <button onClick={() => isAddCookFunc()}>הוסף תבשיל</button>
-        </div>
-        <ul>       
-                <Link to="/cook-list">  לחזרה לעריכת מוצרים</Link>
+                    ))}
+                </ul>
+                <div>
+                    {isAddCook ?
+                        <form onSubmit={(e) => addCook(e, type)}>
+                            <input
+                                type="text"
+                                name="cookName"
+                                placeholder="הכנס שם תבשיל"
+
+                            />
+                            <input
+                                type="time"
+                                name="PreparationTime"
+                                placeholder="הכנס זמן הכנה בדקות"
+
+                            />
+                            <br />
+                            <button type="submit">שמירה </button>
+                            <button onClick={() => setIsAddCook(false)}>ביטול </button>
+                        </form> : null}
+                    <button onClick={() => isAddCookFunc()}>הוסף תבשיל</button>
+                </div>
+            </div>))}
+
+        <ul>
+            <Link to="/cook-list">לרשימת בישולים</Link>
         </ul>
     </>)
 }

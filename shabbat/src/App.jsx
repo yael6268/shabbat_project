@@ -41,7 +41,6 @@ function App() {
         <div className="app">
           {/* Header יופיע בכל העמודים */}
           <Header />
-
           {/* התוכן משתנה לפי הנתיב */}
           <main className="main-content">
             <Routes>
