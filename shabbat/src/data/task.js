@@ -150,15 +150,3 @@ const tasksForShabbat = [
 export const getAllTasks = () => {
     return tasksForShabbat;
 }
-// export const getHospitalityTasks = () => {
-//     return tasksForShabbat.filter(task => task.place === "hospitality");
-// }
-// export const getTravelingTasks = () => {
-//     return tasksForShabbat.filter(task => task.place === "traveling");
-// }
-// export const getAtHomeTasks = () => {
-//     return tasksForShabbat.filter(task => task.place === "atHome");
-// }
-// export const getBasicTasks = () => {
-//     return tasksForShabbat.filter(task => task.place === "basic");
-// }

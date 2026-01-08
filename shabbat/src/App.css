@@ -194,5 +194,7 @@ input[type="checkbox"] {
 /* עיצוב למשימה שהושלמה */
 .task-item.done {
   background-color:rgba(244, 231, 188, 0.3) !important;
-  border-right: 6px solid rgba(244, 197, 29, 0.3);
+  border-right: 6px solid #d0ac37;
+  color: #b79523;
 }
+

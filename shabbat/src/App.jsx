@@ -13,7 +13,8 @@ import {AllShoping} from "./components/allShoping";
 // import { Cooking } from "./components/Cooking";
 // import { Shoping } from './components/shoping';
 import './App.css'
-import './shabbat.css'
+// import './shabbat.css'
+import './style.css'
 
 
 
@@ -43,9 +44,9 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/cook-list" element={<CookList />} />
               <Route path="/edit-cook" element={<EditCook />} />
-              <Route path="/shoping-list" element={<ShopingList />} />
+              <Route path="/shoping-list" element={<ShopingList selectType="guest"/>} />
               <Route path="/edit-tasks" element={<TaskList selectPlace="atHome" />} />
-              <Route path="/edit-shoping" element={<EditShoping selectPlace="basic" />} />
+              <Route path="/edit-shoping" element={<EditShoping  />} />
               <Route path="/task-list" element={<EditTask />} />
               <Route path="/all-shoping" element={<AllShoping />} />
             </Routes>

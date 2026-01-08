@@ -53,7 +53,7 @@ export const EditTask = () => {
     const placeNames = {
         basic: "רשימת משימות בסיסית 📋",
         atHome: "רשימת משימות בבית 🏠",
-        traveling: "רשימת משימות כשנוסעים 🚗",
+        traveling: "רשימת משימות כשמתארחים 🚗",
         hospitality: "רשימת משימות כשמארחים 💐"
     };
 

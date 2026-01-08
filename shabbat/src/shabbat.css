@@ -115,7 +115,7 @@ h3 {
 
 ul.shop-list,
 ul.task-list,
-ul.cook-list {
+ul.--list {
   list-style: none;
   padding: 0;
   margin: 12px auto 20px auto;
@@ -169,7 +169,7 @@ ul.shop-list li.shop-item button,
 ul.task-list li button,
 ul.cook-list li button {
   flex: 0 0 auto;
-  margin-left: 12px;
+  /* margin-left: 12px; */
 }
 
 /* On very small screens allow stacking */
@@ -309,4 +309,7 @@ select {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+#li{
+  display: flex;
 }
