@@ -34,7 +34,7 @@ export const TaskList = ({ selectPlace }) => {
     .reduce((total, task) => total + task.time, 0);
   const hours = Math.floor(totalPending / 60);
   const minutes = totalPending % 60;
-  const timeText = hours === 0 ? `${minutes} דקות` : minutes === 0 ? `${hours} שעות` : `${hours}:${minutes} `;
+  const timeText = hours === 0 ? `${minutes} דקות` : minutes === 0 ? `${hours} שעות` : minutes < 10 ? `${hours}:0${minutes}` : `${hours}:${minutes}`;
 
   return (
     <div className="centered-list">
@@ -51,7 +51,7 @@ export const TaskList = ({ selectPlace }) => {
       <h3>
         סך הזמן של משימות שלא בוצעו: {timeText}
       </h3>
-            <div style={{ marginTop: 8 }}>
+      <div style={{ marginTop: 8 }}>
         <Link to="/task-list" style={{ textDecoration: 'none', color: 'var(--royal)', fontWeight: 600 }}>עריכת משימות</Link>
 
       </div>

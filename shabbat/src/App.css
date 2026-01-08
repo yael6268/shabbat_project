@@ -180,6 +180,21 @@ input[type="text"] {
 
 input[type="checkbox"] {
   accent-color: var(--accent-color);
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 }
+/* עיצוב ברירת מחדל למשימה */
+.task-item {
+  background-color: #ffffff;
+  transition: all 0.3s ease;
+  padding: 15px;
+  border-radius: 15px;
+}
+
+/* עיצוב למשימה שהושלמה */
+.task-item.done {
+  background-color:rgba(244, 231, 188, 0.3) !important;
+  border-right: 6px solid #d0ac37;
+  color: #b79523;
+}
+

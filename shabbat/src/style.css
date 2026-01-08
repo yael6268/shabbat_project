@@ -1,0 +1,231 @@
+/* ================================
+   VARIABLES
+================================ */
+:root {
+  --primary-color: #fdfbf7;
+  --secondary-bg: #ffffff;
+  --text-color: #4a4a4a;
+  --accent-color: #d4af37;
+  --border-radius: 12px;
+  --shadow: 0 4px 15px rgba(0,0,0,0.05);
+  --radius: 10px;
+  --muted: #52697a;
+  --accent: #2b6f77;
+}
+
+/* ================================
+   BASE
+================================ */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  direction: rtl;
+  text-align: right;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+}
+
+h1,h2,h3 { text-align: center; font-weight: 300; letter-spacing: 1px; color: var(--accent-color); }
+h1 { font-size: 3.2em; line-height: 1.1; }
+h3 { color: var(--accent); margin-top: 18px; }
+
+a { font-weight: 500; color: #646cff; text-decoration: inherit; }
+a:hover { color: #535bf2; }
+
+/* ================================
+   LAYOUT
+================================ */
+.app {
+  width: min(980px, 96%);
+  margin: 0 auto;
+  padding: 28px;
+  background: var(--secondary-bg);
+  border-radius: calc(var(--radius) + 4px);
+  box-shadow: 0 6px 18px rgba(16,42,67,0.04);
+  border: 1px solid rgba(16,42,67,0.04);
+}
+
+.main-content { display: flex; flex-direction: column; align-items: center; padding: 18px 0; text-align: center; }
+
+/* ================================
+   LISTS
+================================ */
+.centered-list {
+  max-width: 760px;
+  margin: 12px auto;
+  padding: 8px 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.shop-list li, .cook-list li, .task-list li {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  width: 100%;
+  max-width: 500px;
+  background: var(--secondary-bg);
+  margin-bottom: 12px;
+  padding: 15px 25px;
+  border-radius: var(--border-radius);
+  border-bottom: 5px solid #f2e6d5;
+  border: 2px solid rgba(0,0,0,0.05);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+  transition: transform 0.2s ease;
+}
+
+.shop-list li:hover { transform: translateY(-2px); }
+
+.shop-list li span, .shop-list li p, .shop-list li div { margin: 0; text-align: center; flex-grow: 0; }
+.shop-list li span, .shop-list li div { font-size: 1.1rem; font-weight: 500; margin-bottom: 1px; }
+
+/* Cook list prepared state */
+.cook-list li.prepared {
+  background-color: #f0fff4;
+  border-right: 6px solid #81c784;
+  border-bottom: 2px solid #81c784;
+}
+.cook-list li.prepared * { color: #2e7d32; }
+
+/* Task completed state */
+.task-item.done {
+  background-color: rgba(244,231,188,0.3);
+  border-right: 6px solid #d0ac37;
+  color: #b79523;
+}
+
+/* ================================
+   BUTTONS - LIGHT & MODERN
+================================ */
+button, .btn {
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.1);
+  padding: 10px 25px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: block;
+  margin: 15px auto;
+  background-color: #ffffff; /* רקע בהיר */
+  color: #4a4a4a;           /* טקסט כהה */
+  box-shadow: 0 2px 1px #D4AF37; /* צל עדין */
+  transition: all 0.25s ease;
+}
+
+button:hover, .btn:hover {
+  background-color: #f9f9f9; /* מעט כהה בהחלפה */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.btn.secondary {
+  background-color: #f0f0f0;
+  color: #555555;
+  border: 1px solid #ddd;
+}
+
+/* ================================
+   CARDS & FORMS
+================================ */
+.card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.3));
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 6px 18px rgba(21,28,36,0.04);
+  border: 1px solid rgba(33,37,41,0.03);
+}
+
+input[type="text"], input[type="number"], select {
+  width: 80%;
+  max-width: 520px;
+  padding: 10px 12px;
+  margin: 8px auto;
+  display: block;
+  border-radius: 8px;
+  border: 1px solid rgba(33,37,41,0.06);
+  background: rgba(255,255,255,0.6);
+}
+
+input[type="checkbox"] { accent-color: var(--accent-color); width: 20px; height: 20px; }
+
+/* ================================
+   GROUP BOX - CENTER & WIDER
+================================ */
+.group-box {
+  border: 1px solid rgba(33,37,41,0.06);
+  background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.65));
+  padding: 30px 28px;
+  border-radius: 12px;
+  margin: 20px auto;
+  box-shadow: 0 6px 18px rgba(21,28,36,0.03);
+  max-width: 840px;   /* רחב יותר */
+  width: 90%;         /* גמיש למסכים שונים */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* ================================
+   LISTS INSIDE GROUP
+================================ */
+.group-box .task-list,
+.group-box .shop-list,
+.group-box ul {
+  width: 100%;
+  max-width: 800px;        /* לא יהיה רחב מדי */
+  margin: 12px auto;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;     /* מרכז כל פריט */
+  justify-content: center;
+  text-align: center;
+}
+
+/* ================================
+   LIST ITEMS (LI) - WIDER
+================================ */
+.group-box .task-list li,
+.group-box .shop-list li,
+.group-box ul li {
+  width: 100%;             /* תופס את כל רוחב הרשימה */
+  max-width: 760px;        /* לא תופס יותר מדי */
+  display: flex;
+  justify-content: center; /* מרכז את התוכן */
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 12px;
+  padding: 18px 28px;      /* מרווח פנימי גדול יותר */
+  border-radius: var(--border-radius);
+  background: var(--secondary-bg);
+  box-shadow: var(--shadow);
+  transition: transform 0.2s ease;
+}
+
+.group-box .task-list li:hover,
+.group-box .shop-list li:hover {
+  transform: translateY(-2px);
+}
+
+.group-box h3 { margin: 0 0 8px 0; font-size: 1.05rem; }
+.group-actions { display: flex; justify-content: center; gap: 8px; margin-top: 8px; }
+
+/* ================================
+   RESPONSIVE
+================================ */
+@media (max-width: 640px) {
+  input[type="text"], input[type="number"], select { width: 100%; }
+  .app { padding: 16px; }
+  ul.shop-list li, ul.task-list li, ul.cook-list li { flex-wrap: wrap; align-items: center; }
+  .item-left { width: 100%; justify-content: flex-start; }
+  ul.shop-list li button { margin-left: 0; margin-top: 0; }
+}

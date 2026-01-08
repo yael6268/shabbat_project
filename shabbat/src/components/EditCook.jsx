@@ -85,7 +85,7 @@ export const EditCook = () => {
                                     </div>
                                 ) : (
                                     <div>
-                                        <button onClick={() => deleteCook(c)}> מחק</button> <br />
+                                        <button onClick={() => deleteCook(c)}> מחק</button>
                                         <button onClick={() => handleEditClick(c)}>עריכה</button>
                                     </div>
                                 )}
