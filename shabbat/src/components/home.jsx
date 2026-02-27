@@ -1,17 +1,32 @@
-import { useState } from 'react';
+import { useShabbat } from '../context/ShabbatContext';
+import { useNavigate } from 'react-router-dom';
 
 export const Home = () => {
-  const [shabbatDetails, setShabbatDetails] = useState({
-    time: "",
-    place: "בבית",
-    meals: "3",
-    hospitality: "לבד בבית"
-  });
+  const { shabbatDetails, setShabbatDetails } = useShabbat();
+  const navigate = useNavigate();
 
   const handleInputBlur = () => {
     // אפשר כאן להוסיף כל פעולה לאחר עריכת השעה
     console.log("זמן הדלקת נרות:", shabbatDetails.time);
   }
+
+  const handleApply = () => {
+    // סמן שההגדרות הוחלו (אפשר להרחיב אם צריך לשמור במקום אחר)
+    setShabbatDetails(prev => ({ ...prev, appliedAt: Date.now() }));
+    // נווט לרשימת קניות - כל הרשימות שואבות את הקונטקסט ויציגו את התוכן המתאים
+    // navigate('/shoping-list');
+
+  }
+
+  const toggleMeal = (num) => {
+    const key = String(num);
+    setShabbatDetails(prev => {
+      const meals = Array.isArray(prev.meals) ? [...prev.meals] : [];
+      const idx = meals.indexOf(key);
+      if (idx === -1) meals.push(key); else meals.splice(idx, 1);
+      return { ...prev, meals };
+    });
+  };
 
   return (
     <>
@@ -44,18 +59,20 @@ export const Home = () => {
       </select><br />
 
       <label htmlFor="countmeal">כמות סעודות</label><br />
-      <select
-        name="countmeal"
-        id="countmeal"
-        value={shabbatDetails.meals}
-        onChange={(e) =>
-          setShabbatDetails({ ...shabbatDetails, meals: e.target.value })
-        }
-      >
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-      </select><br />
+      {/* keep as checkboxes - multi selection supported */}
+
+      <label style={{ display: 'block', marginTop: 6 }}>
+        <input type="checkbox" id="meal1" checked={Array.isArray(shabbatDetails.meals) && shabbatDetails.meals.includes('1')} onChange={() => toggleMeal(1)} />{' '}
+        סעודה ראשונה
+      </label>
+      <label style={{ display: 'block' }}>
+        <input type="checkbox" id="meal2" checked={Array.isArray(shabbatDetails.meals) && shabbatDetails.meals.includes('2')} onChange={() => toggleMeal(2)} />{' '}
+        סעודה שנייה
+      </label>
+      <label style={{ display: 'block' }}>
+        <input type="checkbox" id="meal3" checked={Array.isArray(shabbatDetails.meals) && shabbatDetails.meals.includes('3')} onChange={() => toggleMeal(3)} />{' '}
+        סעודה שלישית
+      </label>
 
       <label htmlFor="hospitality">ארוח</label><br />
       <select
@@ -70,7 +87,7 @@ export const Home = () => {
         <option>לבד בבית</option>
       </select><br />
 
-      <button>קבל</button>
+      <button onClick={handleApply}>קבל</button>
     </>
   );
 }

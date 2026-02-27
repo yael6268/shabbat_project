@@ -15,59 +15,62 @@ import {AllShoping} from "./components/allShoping";
 import './App.css'
 // import './shabbat.css'
 import './style.css'
+import { ShabbatProvider, useShabbat } from './context/ShabbatContext';
 
+
+function RoutesWithContext() {
+  const { shabbatDetails } = useShabbat();
+
+  const shopingSelect = (() => {
+    if (!shabbatDetails) return undefined;
+    if (shabbatDetails.hospitality === 'ארוח') return 'guest';
+    if (shabbatDetails.place === 'נוסעים') return 'stay';
+    if (shabbatDetails.meals === '1') return 'basic';
+    if (shabbatDetails.meals === '2') return 'first';
+    return 'guest';
+  })();
+
+  const taskSelect = (() => {
+    if (!shabbatDetails) return undefined;
+    if (shabbatDetails.place === 'נוסעים') return 'travel';
+    if (shabbatDetails.hospitality === 'ארוח') return 'hospitality';
+    return 'atHome';
+  })();
+
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/cook-list" element={<CookList />} />
+      <Route path="/edit-cook" element={<EditCook />} />
+      <Route path="/shoping-list" element={<ShopingList selectType={shopingSelect} />} />
+      <Route path="/edit-tasks" element={<TaskList selectPlace={taskSelect} />} />
+      <Route path="/edit-shoping" element={<EditShoping  />} />
+      <Route path="/task-list" element={<EditTask />} />
+      <Route path="/all-shoping" element={<AllShoping />} />
+    </Routes>
+  );
+}
 
 
 function App() {
   const [showbasics, setShowBasics] = useState(false);
-  // const [showbasicShoping, setShowbasicShoping] = useState(false);
-  // const showbasicShoping = () => {
-  //   setShowBasics(!showbasics);
-  // //  setShowBasics(false);
-  // }
-  // const showbasicShoping = () => {
-  //   ShopingList()
-  // }
-  // const [count, setCount] = useState(0)
   return (
     <>
-      {/* <Home/>
-      <CookList/>
-      <EditCook/> */}
-      <BrowserRouter>
-        <div className="app">
-          {/* Header יופיע בכל העמודים */}
-          <Header />
-          {/* התוכן משתנה לפי הנתיב */}
-          <main className="main-content">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/cook-list" element={<CookList />} />
-              <Route path="/edit-cook" element={<EditCook />} />
-              <Route path="/shoping-list" element={<ShopingList selectType="guest"/>} />
-              <Route path="/edit-tasks" element={<TaskList selectPlace="atHome" />} />
-              <Route path="/edit-shoping" element={<EditShoping  />} />
-              <Route path="/task-list" element={<EditTask />} />
-              <Route path="/all-shoping" element={<AllShoping />} />
-            </Routes>
-          </main>
-        </div>
-      </BrowserRouter>
-      {/* <Home/> */}
-      {/* <CookList/> */}
-      {/* <TaskList/> */}
-      {/* <Cooking/> */}
-      {/* <Home /> */}
-      {/* <CookList /> */}
-      <div>
-        {/* <button onClick={showbasicShoping}>{showbasics ? ' hide ' : ' show '} קניות בסיסיות </button> */}
-        {/* <Cooking/> */}</div>
-      {/* {showbasics && <ShopingList showOnly={false} /> }  */}
-
+      <ShabbatProvider>
+        <BrowserRouter>
+          <div className="app">
+            {/* Header יופיע בכל העמודים */}
+            <Header />
+            {/* התוכן משתנה לפי הנתיב */}
+            <main className="main-content">
+              <RoutesWithContext />
+            </main>
+          </div>
+        </BrowserRouter>
+      </ShabbatProvider>
     </>
   )
 }
-
 
 
 export default App

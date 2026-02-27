@@ -1,14 +1,14 @@
-import { use, useState } from "react";
+import { useState } from "react";
 import { getBasicCooking, getFirstMeal, getSecondMeal, getThirdMeal } from "../data/cook"
 import { Cooking } from "./Cooking";
 import { Link } from 'react-router-dom';
 import { nanoid } from "nanoid";
-// import { CookList } from "./CookList";
-// import { Home } from "./Home";
-// import { home } from "/home"2
+import { useShabbat } from '../context/ShabbatContext';
+
 export const EditCook = () => {
     const allMeals = [...getBasicCooking(), ...getFirstMeal(), ...getSecondMeal(), ...getThirdMeal()];
     const [cookies, setCookies] = useState(allMeals);
+    const { shabbatDetails } = useShabbat();
     const deleteCook = (cook) => {
         setCookies(prev => prev.filter(c => c.id !== cook.id));
     }
@@ -41,8 +41,6 @@ export const EditCook = () => {
     const addCook = (event,type) => {
         setIsAddCook(false);
         event.preventDefault();
-        console.log("type:",type);
-        console.log("event:",event);        
         const newCook = {
             id: nanoid(),
             name: event.target.elements.cookName.value,
@@ -53,7 +51,38 @@ export const EditCook = () => {
         setCookies([...cookies, newCook]);
         event.target.reset();
     }
-    const groupedCooks = cookies.reduce((groups, cook) => {
+
+    const deriveTypes = () => {
+        console.log("Deriving types based on shabbatDetails:", shabbatDetails);
+        
+      if (!shabbatDetails) return null;
+      const meals = Array.isArray(shabbatDetails.meals)
+        ? shabbatDetails.meals
+        : (shabbatDetails.meals ? [shabbatDetails.meals] : []);
+      if (meals.length === 0) {
+        // no selection -> show all available types
+        // return Array.from(new Set(cookies.map(c => c.type)));
+        return null;
+      }
+      const mapMeal = (m) => {
+        switch (m) {
+          case '1': return 'FirstMeal';
+          case '2': return 'SecondMeal';
+          case '3': return 'ThirdMeal';
+          default: return null;
+        }
+      };
+      const selectedTypes = meals.map(mapMeal).filter(Boolean);
+      // always include BasicCooking when any meal is selected
+      return Array.from(new Set(['BasicCooking', ...selectedTypes]));
+    };
+
+    const typesToShow = deriveTypes();
+    const cookiesToDisplay = Array.isArray(typesToShow) && typesToShow.length > 0 
+      ? cookies.filter(c => typesToShow.includes(c.type))
+      : [];
+
+    const groupedCooks = cookiesToDisplay.reduce((groups, cook) => {
         if (!groups[cook.type]) groups[cook.type] = [];
         groups[cook.type].push(cook);
         return groups;
