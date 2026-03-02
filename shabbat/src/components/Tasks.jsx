@@ -57,3 +57,4 @@ export const Tasks2 = ({ task, onToggle }) => {
 
   );
 };
+

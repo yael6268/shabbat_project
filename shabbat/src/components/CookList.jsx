@@ -9,7 +9,6 @@ export const CookList = () => {
     return (<>
         <h1>המטעמים של שבת</h1>
         <ul className="cook-list centered-list">
-
             {cookies.map((c, i) => (
                 <li key={c.id}
                     className={`cook-item ${c.isPrepared ? 'prepared' : ''}`}>

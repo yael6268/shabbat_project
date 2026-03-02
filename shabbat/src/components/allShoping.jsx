@@ -54,6 +54,7 @@ export default function ShopingList({ showOnly }) {
         </ul>
     </>);
 }
+
 export const AllShoping = () => {
     return (<>
         <h1> כל מוצרי הקניות לשבת</h1>

@@ -59,13 +59,14 @@ export const EditCook = () => {
         return groups;
     }, {});
     return (<>
+    <div className="cook-list">
         <h1>רשימת המטעמים של שבת </h1>
         {Object.entries(groupedCooks).map(([type, cooksByType]) => (
-            <div key={type} className="group-box">
+            <div key={type} >
                 <h3>{type}</h3>
-                <ul className="cook-list centered-list">
+                <ul className="cook-list">
                     {cooksByType.map((c, i) => (
-                        <li key={c.id}>
+                        <li key={c.id} >
                             <Cooking cookName={editingId === c.id ? editingId : c} cook={c} />
                             <div>
                                 {editingId === c.id ? (
@@ -80,13 +81,13 @@ export const EditCook = () => {
                                             value={editData?.PreparationTime ?? ""}
                                             onChange={(e) => handleChange("PreparationTime", e.target.value)}
                                         />
-                                        <button onClick={handleSaveClick}>שמור</button>
+                                        <button onClick={handleSaveClick}>💾 שמור</button>
                                         <button onClick={handleCancelClick}>ביטול</button>
                                     </div>
                                 ) : (
                                     <div>
-                                        <button onClick={() => deleteCook(c)}> מחק</button> <br />
-                                        <button onClick={() => handleEditClick(c)}>עריכה</button>
+                                        <button onClick={() => deleteCook(c)}> 🗑️ מחק</button> <br />
+                                        <button onClick={() => handleEditClick(c)}>✏️ עריכה</button>
                                     </div>
                                 )}
                             </div>
@@ -95,7 +96,7 @@ export const EditCook = () => {
 
                     ))}
                 </ul>
-                <div>
+                <div >
                     {isAddCook ?
                         <form onSubmit={(e) => addCook(e, type)}>
                             <input
@@ -121,5 +122,6 @@ export const EditCook = () => {
         <ul>
             <Link to="/cook-list">לרשימת בישולים</Link>
         </ul>
+    </div>
     </>)
 }
