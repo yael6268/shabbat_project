@@ -1,7 +1,5 @@
-import { use, useState, useEffect } from "react";
-import { getBasicShoping, getShopingForFirstMeal, getShopingForStayWithFamily, getShopingForGuests, getShopingForSecondMeal, getShopingForThirdMeal} from "../data/shoping"
-import { Shoping2 } from "./shoping2";
 import { Link } from 'react-router-dom';
+// import { ShopingList } from './shopingList';
 
 export default function ShopingList({ showOnly }) {
     // const [shoping, setShoping] = useState([]);
@@ -56,10 +54,15 @@ export default function ShopingList({ showOnly }) {
 }
 
 export const AllShoping = () => {
-    return (<>
-        <h1> כל מוצרי הקניות לשבת</h1>
-        <ShopingList showOnly={true} />
-    </>);
+	return (
+		<div className="centered-list">
+			<h1>כל מוצרי הקניות לשבת</h1>
+			<ShopingList showOnly={true} />
+			<div style={{ marginTop: 12 }}>
+				<Link to="/shoping-list" style={{ textDecoration: 'none', color: 'var(--royal, #2b6f77)', fontWeight: 600 }}>לחזרה לעריכת מוצרים</Link>
+			</div>
+		</div>
+	);
 };
 
 

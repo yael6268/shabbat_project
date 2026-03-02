@@ -1,230 +1,89 @@
 import { useState, useEffect } from "react";
-import {
-  getBasicShoping,
-  getShopingForFirstMeal,
-  getShopingForSecondMeal,
-  getShopingForThirdMeal,
-  getShopingForStayWithFamily,
-  getShopingForGuests,
-  addNewproduct,
-  addNewproduct1,
-  addNewproduct2,
-  addNewproduct3,
-  addNewproduct4,
-  addNewproduct5,
-} from "../data/shoping";
+import { Link } from 'react-router-dom';
+import { getAllShoping } from "../data/shoping";
+import { Shoping2} from "./shoping2";
+import { useShabbat } from '../context/ShabbatContext';
 
-import { Shoping } from "./shoping";
-import { nanoid } from "nanoid";
-import { Link } from "react-router-dom";
-
-export const ShopingList = ({ showOnly }) => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-
-  const [basicShoping, setBasicShoping] = useState([]);
-  const [ShopingForFirstMeal, setShopingForFirstMeal] = useState([]);
-  const [ShopingForSecondMeal, setShopingForSecondMeal] = useState([]);
-  const [ShopingForThirdMeal, setShopingForThirdMeal] = useState([]);
-  const [ShopingForStayWithFamily, setShopingForStayWithFamily] = useState([]);
-  const [ShopingForGuests, setShopingForGuests] = useState([]);
-
-  // איזה טופס פתוח כרגע
-  const [openForm, setOpenForm] = useState(null);
+export const ShopingList = ({ selectType }) => {
+  const { shabbatDetails } = useShabbat();
+  const [shopings, setShopings] = useState([]);
+  const [visibleShopings, setVisibleShopings] = useState([]);
 
   useEffect(() => {
-    const loadshop = async () => {
-      setLoading(true);
-      try {
-        setBasicShoping(await getBasicShoping());
-        setShopingForFirstMeal(await getShopingForFirstMeal());
-        setShopingForSecondMeal(await getShopingForSecondMeal());
-        setShopingForThirdMeal(await getShopingForThirdMeal());
-        setShopingForStayWithFamily(await getShopingForStayWithFamily());
-        setShopingForGuests(await getShopingForGuests());
-      } catch (err) {
-        console.log(err);
-        setError(true);
-      } finally {
-        setLoading(false);
+    // initialize master list with unchecked flag
+    const all = getAllShoping().map(s => ({ ...s, checked: !!s.checked }));
+    setShopings(all);
+  }, []);
+ console.log("Deriving types based on shabbatDetails:", shabbatDetails);
+  const deriveTypes = () => {
+    if (selectType) return [selectType];
+    if (!shabbatDetails) return ['basic'];
+
+    const meals = Array.isArray(shabbatDetails.meals)
+      ? shabbatDetails.meals
+      : (shabbatDetails.meals ? [shabbatDetails.meals] : []);
+
+    const types = [];
+    // hospitality > guest
+    if (shabbatDetails.hospitality === 'ארוח') types.push('guest');
+    // place > stay
+    if (shabbatDetails.place === 'נוסעים') types.push('stay');
+
+    // map meals numbers to types
+    const mapMeal = (m) => {
+      switch (m) {
+        case '1': return 'first';
+        case '2': return 'second';
+        case '3': return 'third';
+        default: return null;
       }
     };
 
-    loadshop();
-  }, []);
+    const mealTypes = meals.map(mapMeal).filter(Boolean);
+    if (mealTypes.length > 0) {
+      // always include basic when any meal selected
+      types.push('basic', ...mealTypes);
+    }
 
-  // פונקציה כללית להוספת מוצר
-  const handleAddProduct = async (event, addFunc, setFunc) => {
-    event.preventDefault();
-    const newProduct = {
-      id: nanoid(),
-      name: event.target.name.value,
-    };
-
-    event.target.reset();
-
-    const updatedList = await addFunc(newProduct);
-    setFunc(updatedList);
-
-    setOpenForm(null);
+    // if nothing was selected, default to basic
+    return types.length > 0 ? Array.from(new Set(types)) : ['basic'];
   };
 
-  if (loading) return <p>טוען...</p>;
-  if (error) return <p>אירעה שגיאה</p>;
+  useEffect(() => {
+    // Update visible list whenever context or master list changes
+    const typesToShow = deriveTypes();
+    const filtered = Array.isArray(typesToShow) && typesToShow.length > 0
+      ? shopings.filter(s => typesToShow.includes(s.type))
+      : [];
+
+    setVisibleShopings(filtered);
+  }, [shabbatDetails?.meals, shabbatDetails?.place, shabbatDetails?.hospitality, shopings]);
+
+  const toggleChecked = (id) => {
+    setShopings(prev => prev.map(s => s.id === id ? { ...s, checked: !s.checked } : s));
+    setVisibleShopings(prev => prev.map(s => s.id === id ? { ...s, checked: !s.checked } : s));
+  };
 
   return (
-    <>
-      <h1>רשימת הקניות לשבת</h1>
+    <div className="centered-list">
+      <h2>רשימת קניות</h2>
+      {visibleShopings.length === 0 ? (
+        <p>לא נבחרו סעודות בעמוד הבית — אין פריטים להצגה</p>
+      ) : (
+        <ul className="task-list">
+          {visibleShopings.map(shoping => (
+            <Shoping2
+              key={shoping.id}
+              shoping={shoping}
+              onToggle={() => toggleChecked(shoping.id)}
+            />
+          ))}
+        </ul>
+      )}
+      <div style={{ marginTop: 8 }}>
+        <Link to="/edit-shoping" style={{ textDecoration: 'none', color: 'var(--royal)', fontWeight: 600 }}>עריכת קניות</Link>
 
-      {/* ===== קניות בסיסיות ===== */}
-      <Section
-        title="קניות בסיסיות"
-        items={basicShoping}
-        onDelete={(id) =>
-          setBasicShoping((prev) => prev.filter((p) => p.id !== id))
-        }
-        openForm={openForm}
-        setOpenForm={setOpenForm}
-        formKey="basic"
-        onAdd={(e) => handleAddProduct(e, addNewproduct, setBasicShoping)}
-        showOnly={showOnly}
-      />
-
-      {/* ===== סעודה ראשונה ===== */}
-      <Section
-        title="קניות לסעודה ראשונה"
-        items={ShopingForFirstMeal}
-        onDelete={(id) =>
-          setShopingForFirstMeal((prev) => prev.filter((p) => p.id !== id))
-        }
-        openForm={openForm}
-        setOpenForm={setOpenForm}
-        formKey="first"
-        onAdd={(e) =>
-          handleAddProduct(e, addNewproduct1, setShopingForFirstMeal)
-        }
-        showOnly={showOnly}
-      />
-
-      {/* ===== סעודה שניה ===== */}
-      <Section
-        title="קניות לסעודה שניה"
-        items={ShopingForSecondMeal}
-        onDelete={(id) =>
-          setShopingForSecondMeal((prev) => prev.filter((p) => p.id !== id))
-        }
-        openForm={openForm}
-        setOpenForm={setOpenForm}
-        formKey="second"
-        onAdd={(e) =>
-          handleAddProduct(e, addNewproduct2, setShopingForSecondMeal)
-        }
-        showOnly={showOnly}
-      />
-
-      {/* ===== סעודה שלישית ===== */}
-      <Section
-        title="קניות לסעודה שלישית"
-        items={ShopingForThirdMeal}
-        onDelete={(id) =>
-          setShopingForThirdMeal((prev) => prev.filter((p) => p.id !== id))
-        }
-        openForm={openForm}
-        setOpenForm={setOpenForm}
-        formKey="third"
-        onAdd={(e) =>
-          handleAddProduct(e, addNewproduct3, setShopingForThirdMeal)
-        }
-        showOnly={showOnly}
-      />
-
-      {/* ===== אירוח משפחה ===== */}
-      <Section
-        title="קניות לאירוח אצל משפחה"
-        items={ShopingForStayWithFamily}
-        onDelete={(id) =>
-          setShopingForStayWithFamily((prev) =>
-            prev.filter((p) => p.id !== id)
-          )
-        }
-        openForm={openForm}
-        setOpenForm={setOpenForm}
-        formKey="family"
-        onAdd={(e) =>
-          handleAddProduct(e, addNewproduct4, setShopingForStayWithFamily)
-        }
-        showOnly={showOnly}
-      />
-
-      {/* ===== אורחים ===== */}
-      <Section
-        title="קניות לאירוח אורחים"
-        items={ShopingForGuests}
-        onDelete={(id) =>
-          setShopingForGuests((prev) => prev.filter((p) => p.id !== id))
-        }
-        openForm={openForm}
-        setOpenForm={setOpenForm}
-        formKey="guests"
-        onAdd={(e) =>
-          handleAddProduct(e, addNewproduct5, setShopingForGuests)
-        }
-        showOnly={showOnly}
-      />
-
-      <Link to="/all-shoping">להצגת כל המוצרים</Link>
-    </>
+      </div>
+    </div>
   );
 };
-
-// ================= קומפוננטת עזר =================
-const Section = ({
-  title,
-  items,
-  onDelete,
-  openForm,
-  setOpenForm,
-  formKey,
-  onAdd,
-  showOnly,
-}) => (
-  <>
-    <h3>{title}</h3>
-
-    <ul className="shop-list centered-list">
-      {items.map((s) => (
-        <Shoping
-          key={s.id}
-          shoping={s}
-          showOnly={showOnly}
-          onDelete={onDelete}
-        />
-      ))}
-    </ul>
-
-    <button className="btn" onClick={() => setOpenForm(formKey)}>
-      הוספת מוצר
-    </button>
-
-    {openForm === formKey && (
-      <form className="card" onSubmit={onAdd}>
-        <input
-          type="text"
-          name="name"
-          placeholder="הכנס שם מוצר"
-          required
-        />
-        <br />
-        <br />
-        <button className="btn">שמור</button>
-        <button
-          type="button"
-          className="btn secondary"
-          onClick={() => setOpenForm(null)}
-        >
-          ביטול
-        </button>
-      </form>
-    )}
-  </>
-);
