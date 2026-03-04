@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { getBasicCooking, getFirstMeal, getSecondMeal, getThirdMeal } from "../data/cook"
+import { getBasicCooking, getDinnerWithGuests, getFirstMeal, getSecondMeal, getThirdMeal } from "../data/cook"
 import { Cooking } from "./Cooking";
 import { Link } from 'react-router-dom';
 import { nanoid } from "nanoid";
 import { useShabbat } from '../context/ShabbatContext';
 
 export const EditCook = () => {
-    const allMeals = [...getBasicCooking(), ...getFirstMeal(), ...getSecondMeal(), ...getThirdMeal()];
+    const allMeals = [...getBasicCooking(), ...getFirstMeal(), ...getSecondMeal(), ...getThirdMeal(), ...getDinnerWithGuests()];
     const [cookies, setCookies] = useState(allMeals);
     const { shabbatDetails } = useShabbat();
     const deleteCook = (cook) => {
@@ -59,11 +59,11 @@ export const EditCook = () => {
       const meals = Array.isArray(shabbatDetails.meals)
         ? shabbatDetails.meals
         : (shabbatDetails.meals ? [shabbatDetails.meals] : []);
-      if (meals.length === 0) {
-        // no selection -> show all available types
-        // return Array.from(new Set(cookies.map(c => c.type)));
-        return null;
-      }
+    //   if (meals.length === 0) {
+    //     // no selection -> show all available types
+    //     // return Array.from(new Set(cookies.map(c => c.type)));
+    //     return null;
+    //   }
       const mapMeal = (m) => {
         switch (m) {
           case '1': return 'FirstMeal';
@@ -73,8 +73,16 @@ export const EditCook = () => {
         }
       };
       const selectedTypes = meals.map(mapMeal).filter(Boolean);
-      // always include BasicCooking when any meal is selected
-      return Array.from(new Set(['BasicCooking', ...selectedTypes]));
+
+      // include DinnerWithGuests when hospitality is 'ארוח' or place is 'מארחים'
+      const extra = [];
+      if (shabbatDetails.hospitality === 'ארוח' || shabbatDetails.place === 'מארחים') extra.push('DinnerWithGuests');
+
+      // if nothing selected and no hospitality, show nothing
+      if (selectedTypes.length === 0 && extra.length === 0) return null;
+
+      // always include BasicCooking when there's any selection
+      return Array.from(new Set(['BasicCooking', ...selectedTypes, ...extra]));
     };
 
     const typesToShow = deriveTypes();
@@ -88,13 +96,14 @@ export const EditCook = () => {
         return groups;
     }, {});
     return (<>
+    <div className="cook-list">
         <h1>רשימת המטעמים של שבת </h1>
         {Object.entries(groupedCooks).map(([type, cooksByType]) => (
-            <div key={type} className="group-box">
+            <div key={type} >
                 <h3>{type}</h3>
-                <ul className="cook-list centered-list">
+                <ul className="cook-list">
                     {cooksByType.map((c, i) => (
-                        <li key={c.id}>
+                        <li key={c.id} >
                             <Cooking cookName={editingId === c.id ? editingId : c} cook={c} />
                             <div>
                                 {editingId === c.id ? (
@@ -109,13 +118,13 @@ export const EditCook = () => {
                                             value={editData?.PreparationTime ?? ""}
                                             onChange={(e) => handleChange("PreparationTime", e.target.value)}
                                         />
-                                        <button onClick={handleSaveClick}>שמור</button>
+                                        <button onClick={handleSaveClick}>💾 שמור</button>
                                         <button onClick={handleCancelClick}>ביטול</button>
                                     </div>
                                 ) : (
                                     <div>
-                                        <button onClick={() => deleteCook(c)}> מחק</button>
-                                        <button onClick={() => handleEditClick(c)}>עריכה</button>
+                                        <button onClick={() => deleteCook(c)}> 🗑️ מחק</button> <br />
+                                        <button onClick={() => handleEditClick(c)}>✏️ עריכה</button>
                                     </div>
                                 )}
                             </div>
@@ -124,7 +133,7 @@ export const EditCook = () => {
 
                     ))}
                 </ul>
-                <div>
+                <div >
                     {isAddCook ?
                         <form onSubmit={(e) => addCook(e, type)}>
                             <input
@@ -150,5 +159,6 @@ export const EditCook = () => {
         <ul>
             <Link to="/cook-list">לרשימת בישולים</Link>
         </ul>
+    </div>
     </>)
 }

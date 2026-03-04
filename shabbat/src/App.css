@@ -180,6 +180,15 @@ input[type="text"] {
 
 input[type="checkbox"] {
   accent-color: var(--accent-color);
+<<<<<<< HEAD
+  width: 18px;
+  height: 18px;
+}
+span{
+  padding: 0%;
+  margin: 4%;
+}
+=======
   width: 20px;
   height: 20px;
 }
@@ -198,3 +207,4 @@ input[type="checkbox"] {
   color: #b79523;
 }
 
+>>>>>>> 58c0737ee99660344a6cebfa056339e2c5b3364a
