@@ -38,7 +38,7 @@ export const TaskList = ({ selectPlace }) => {
 
   return (
     <div className="centered-list">
-      <h2>Task List</h2>
+      <h2>⏱️ Task List</h2>
       <ul className="task-list">
         {tasksToShow.map(task => (
           <Tasks2
@@ -49,7 +49,7 @@ export const TaskList = ({ selectPlace }) => {
         ))}
       </ul>
       <h3>
-        סך הזמן של משימות שלא בוצעו: {timeText}
+        ⏱️ סך הזמן של משימות שלא בוצעו: {timeText}
       </h3>
       <div style={{ marginTop: 8 }}>
         <Link to="/task-list" style={{ textDecoration: 'none', color: 'var(--royal)', fontWeight: 600 }}>עריכת משימות</Link>

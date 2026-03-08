@@ -1,0 +1,253 @@
+/* Modern Event Site Design - Clean & Luxurious */
+
+:root {
+  --primary-bg: #F7F9FC;
+  --secondary-bg: #FFFFFF;
+  --text-dark: #1F2933;
+  --text-light: #4B5563;
+  --primary-accent: #183153;
+  --secondary-accent: #FF6B6B;
+  --highlight: #FF6B6B; /* use red for highlights */
+  --border-radius: 8px;
+  --box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  --transition: 0.3s ease;
+}
+
+/* global reset */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--primary-bg);
+  font-family: 'Inter', sans-serif;
+  color: var(--text-dark);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  direction: rtl;
+  text-align: center;
+}
+
+/* container for pages */
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+/* headings */
+h1, h2, h3 {
+  font-weight: 700;
+  color: var(--primary-accent);
+  margin: 16px 0;
+}
+h1 { font-size: 2.25rem; color: var(--primary-accent); }
+h2 { font-size: 1.75rem; }
+h3 { font-size: 1.25rem; }
+
+/* paragraphs */
+p { margin: 12px 0; color: var(--text-light); }
+
+/* links */
+a {
+  color: var(--secondary-accent);
+  text-decoration: none;
+  position: relative;
+  transition: color var(--transition);
+}
+a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background: var(--secondary-accent);
+  bottom: -2px;
+  left: 0;
+  transition: width var(--transition);
+}
+a:hover {
+  color: var(--primary-accent);
+}
+a:hover::after { width: 100%; }
+
+/* forms */
+input[type="text"], input[type="time"], select {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  border: 1px solid #D1D5DB;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  background: var(--secondary-bg);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+input[type="time"] { width: auto; max-width: 140px; }
+label + input[type="text"] { width: 60%; margin: 0 auto 14px; }
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--primary-accent);
+  box-shadow: 0 0 0 3px rgba(24,49,83,0.12);
+}
+
+/* form card wrapper */
+.form-card {
+  background: linear-gradient(135deg, rgba(24,49,83,0.05) 0%, rgba(255,107,107,0.05) 100%);
+  border: 1px solid #E5E7EB;
+  border-radius: var(--border-radius);
+  padding: 24px;
+  margin: 20px 0;
+  box-shadow: var(--box-shadow);
+}
+
+.form-group {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-group label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: var(--text-dark);
+}
+
+.form-group input[type="time"],
+.form-group select {
+  width: 100%;
+  max-width: 260px;
+}
+
+/* modern checkbox */
+input[type="checkbox"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--primary-accent);
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  transition: background var(--transition), border-color var(--transition);
+}
+input[type="checkbox"]:checked {
+  background: var(--primary-accent);
+  border-color: var(--primary-accent);
+}
+input[type="checkbox"]:checked::after {
+  content: '\2713';
+  position: absolute;
+  top: 0; left: 3px;
+  font-size: 14px;
+  color: #fff;
+}
+
+/* disabled state for travel scenario */
+input[type="checkbox"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* buttons */
+button {
+  background: var(--primary-accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+}
+button:hover { background: var(--secondary-accent); }
+button:active { transform: scale(0.98); }
+
+/* list styles */
+ul.cook-list, ul.task-list, ul.shop-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+ul.cook-list li, ul.task-list li, ul.shop-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  direction: rtl;
+  text-align: center;
+  padding: 14px 18px;
+  background: var(--secondary-bg);
+  border-radius: var(--border-radius);
+  margin-bottom: 12px;
+  box-shadow: var(--box-shadow);
+  transition: background var(--transition);
+}
+
+ul.cook-list li:hover, ul.task-list li:hover, ul.shop-list li:hover {
+  background: #F0F4F8;
+  cursor: pointer;
+}
+
+/* luxury prepared style */
+ul.cook-list li.prepared, ul.task-list li.done {
+  position: relative;
+  background: linear-gradient(135deg, #FFE5E5 0%, #FFB6C1 100%);
+  border-left: 4px solid var(--secondary-accent);
+  transition: background 0.5s ease;
+}
+
+/* spark animation on prepared - moved to left with checkbox */
+ul.cook-list li.prepared::before,
+ul.task-list li.done::before {
+  content: '✨';
+  position: relative;
+  margin-right: 8px;
+  font-size: 16px;
+  animation: sparkle 1s ease-in-out;
+}
+
+@keyframes sparkle {
+  0% { opacity: 0; transform: scale(0.5); }
+  50% { opacity: 1; transform: scale(1.2); }
+  100% { opacity: 0; transform: scale(1); }
+}
+
+/* progress bar */
+.progress {
+  height: 8px;
+  background: #E5E7EB;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 12px 0 20px;
+}
+.progress-bar {
+  height: 100%;
+    background: linear-gradient(90deg, var(--primary-accent), var(--secondary-accent)); /* keep blue to red gradient */
+  transition: width var(--transition);
+}
+
+.cook-item.prepared { opacity: 0.6; }
+.cook-item.prepared div:first-child { text-decoration: line-through; }
+
+/* time display highlight */
+.time-display { color: var(--secondary-accent); font-weight: 700; }
+
+/* remaining items section on home */
+.remaining-section {
+  background: linear-gradient(135deg, rgba(24,49,83,0.05) 0%, rgba(255,107,107,0.05) 100%);
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 24px;
+  /* border-left: 4px solid var(--secondary-accent); */
+}
+.remaining-list {
+  max-width: 100%;
+  text-align: right;
+}
+
+/* responsive adjustments */
+@media (max-width: 640px) {
+  h1 { font-size: 1.75rem; padding: 12px; }
+  h2 { font-size: 1.5rem; }
+  ul.cook-list li, ul.task-list li, ul.shop-list li { flex-direction: column; align-items: flex-start; }
+  button { width: 100%; }
+  input[type="time"] { width: 100%; }
+}

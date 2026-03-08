@@ -12,9 +12,11 @@ import { EditTask } from "./components/editTask";
 import {AllShoping} from "./components/allShoping";
 // import { Cooking } from "./components/Cooking";
 // import { Shoping } from './components/shoping';
-import './App.css'
-// import './shabbat.css'
-import './style.css'
+// legacy imports commented out
+// import './App.css'
+// import './shabbat-design.css'
+// import './style.css'
+import './modern-design.css'
 import { ShabbatProvider, useShabbat } from './context/ShabbatContext';
 
 

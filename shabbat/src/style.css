@@ -1,6 +1,10 @@
+/* 
+===== עיצוב ישן - מערומם לטובת העיצוב החדש (shabbat-design.css) =====
+
 /* ================================
    VARIABLES
 ================================ */
+/*
 :root {
   --primary-color: #fdfbf7;
   --secondary-bg: #ffffff;
@@ -229,3 +233,4 @@ input[type="checkbox"] { accent-color: var(--accent-color); width: 20px; height:
   .item-left { width: 100%; justify-content: flex-start; }
   ul.shop-list li button { margin-left: 0; margin-top: 0; }
 }
+*/

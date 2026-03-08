@@ -15,6 +15,7 @@ export const EditCook = () => {
     const [editingId, setEditingId] = useState(null);
     const [editData, setEditData] = useState(null);
     const [isAddCook, setIsAddCook] = useState(false);
+    const [showOnlyUnprepared, setShowOnlyUnprepared] = useState(false);
 
     const handleEditClick = (c) => {
         setEditingId(c.id);
@@ -86,18 +87,26 @@ export const EditCook = () => {
     };
 
     const typesToShow = deriveTypes();
-    const cookiesToDisplay = Array.isArray(typesToShow) && typesToShow.length > 0 
+    let cookiesToDisplay = Array.isArray(typesToShow) && typesToShow.length > 0 
       ? cookies.filter(c => typesToShow.includes(c.type))
       : [];
+    if (showOnlyUnprepared) {
+      cookiesToDisplay = cookiesToDisplay.filter(c => !c.isPrepared);
+    }
 
     const groupedCooks = cookiesToDisplay.reduce((groups, cook) => {
         if (!groups[cook.type]) groups[cook.type] = [];
         groups[cook.type].push(cook);
         return groups;
     }, {});
-    return (<>
+    return (<div className="container">
     <div className="cook-list">
         <h1>רשימת המטעמים של שבת </h1>
+        <div style={{marginBottom:12}}>
+           <label style={{fontWeight:500, cursor:'pointer'}}>
+             <input type="checkbox" checked={showOnlyUnprepared} onChange={() => setShowOnlyUnprepared(v=>!v)} style={{marginRight:6}} /> הצג רק שלא הוכנו
+           </label>
+        </div>
         {Object.entries(groupedCooks).map(([type, cooksByType]) => (
             <div key={type} >
                 <h3>{type}</h3>
@@ -123,8 +132,10 @@ export const EditCook = () => {
                                     </div>
                                 ) : (
                                     <div>
-                                        <button onClick={() => deleteCook(c)}> 🗑️ מחק</button> <br />
-                                        <button onClick={() => handleEditClick(c)}>✏️ עריכה</button>
+                                        <div className="btn-group">
+                                          <button className="btn small btn-danger" onClick={() => deleteCook(c)}>מחק</button>
+                                          <button className="btn small btn-secondary" onClick={() => handleEditClick(c)}>ערוך</button>
+                                        </div>
                                     </div>
                                 )}
                             </div>
@@ -160,5 +171,5 @@ export const EditCook = () => {
             <Link to="/cook-list">לרשימת בישולים</Link>
         </ul>
     </div>
-    </>)
+    </div>)
 }

@@ -28,6 +28,7 @@ export const ShopingList = ({ selectType }) => {
     if (shabbatDetails.hospitality === 'ארוח') types.push('guest');
     // place > stay
     if (shabbatDetails.place === 'נוסעים') types.push('stay');
+    if (shabbatDetails.place === 'מארחים') types.push('stay&guest');
 
     // map meals numbers to types
     const mapMeal = (m) => {

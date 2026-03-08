@@ -88,9 +88,16 @@ const [cookies, setCookies] = useState([]);
       const m = mins % 60;
       return h > 0 ? `${h}:${m.toString().padStart(2,'0')}` : `${m} דקות`;
     };
-    return (<>
+    const totalMinutes = cookies.reduce((acc,item)=>acc+parseTime(item.PreparationTime),0);
+    const doneMinutes = cookies.filter(c=>c.isPrepared).reduce((acc,item)=>acc+parseTime(item.PreparationTime),0);
+    const percent = totalMinutes ? Math.round((doneMinutes/totalMinutes)*100) : 0;
+    return (
+      <div className="container">
         <h1>המטעמים של שבת</h1>
-        <h2>⏱️ זמן נותר: {formatTime(remainingTime)}</h2>
+        <div className="progress">
+            <div className="progress-bar" style={{width:`${percent}%`}}></div>
+        </div>
+        <h2 className="time-display">⏱️ זמן נותר: {formatTime(remainingTime)}</h2>
         <ul className="cook-list centered-list">
             {cookies.map((c, i) => (
                 <li key={c.id}
@@ -113,9 +120,9 @@ const [cookies, setCookies] = useState([]);
             ))}
         </ul>
         <ul>
-
             <Link to="/edit-cook">לחזרה לעריכת מוצרים</Link>
         </ul>
-    </>)
+      </div>
+    )
 }
 export default CookList;

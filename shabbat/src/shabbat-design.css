@@ -1,0 +1,369 @@
+/* Shabbat Design - Vintage Colors & Modern Style */
+
+/* Color Palette */
+:root {
+  --vintage-rose: #A88BA0;
+  --soft-rose: #C4A9B8;
+  --turquoise: #6B9E95;
+  --soft-turquoise: #7DACA7;
+  --accent-gold: #D4AF37;
+  --soft-gold: #C9A961;
+  --light-cream: #FBF8F3;
+  --dark-text: #3d3d3d;
+  --border-color: #e0d5ca;
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(135deg, rgba(251, 248, 243, 0.95) 0%, rgba(196, 169, 184, 0.1) 100%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--dark-text);
+  margin: 0;
+  padding: 0;
+}
+
+/* Background with Flower Pattern */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><defs><filter id="blur"><feGaussianBlur in="SourceGraphic" stdDeviation="2" /></filter></defs><g fill="none" stroke="%23D4AF37" stroke-width="0.5" opacity="0.15" filter="url(%23blur)"><circle cx="50" cy="50" r="20"/><circle cx="350" cy="100" r="15"/><circle cx="100" cy="350" r="18"/><circle cx="320" cy="280" r="16"/></g></svg>');
+  background-size: 400px 400px;
+  background-repeat: repeat;
+  background-attachment: fixed;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Container */
+.container, .centered-list {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 24px;
+  background: rgba(251, 248, 243, 0.98);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(168, 139, 160, 0.15);
+}
+
+/* Typography */
+h1 {
+  color: var(--vintage-rose);
+  font-size: 2em;
+  margin: 16px 0;
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+h2 {
+  color: var(--turquoise);
+  font-size: 1.5em;
+  margin: 20px 0 12px;
+  font-weight: 600;
+}
+
+h3 {
+  color: var(--soft-rose);
+  font-size: 1.2em;
+  margin: 12px 0;
+}
+
+/* Labels */
+label {
+  display: block;
+  color: var(--dark-text);
+  font-weight: 500;
+  margin: 12px 0 4px;
+  font-size: 0.95em;
+}
+
+/* Input Fields */
+input[type="text"],
+input[type="time"],
+select {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 0.95em;
+  font-family: inherit;
+  background: white;
+  color: var(--dark-text);
+  transition: all 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="time"]:focus,
+select:focus {
+  outline: none;
+  border-color: var(--turquoise);
+  box-shadow: 0 0 0 3px rgba(107, 158, 149, 0.1);
+  background: rgba(251, 248, 243, 0.5);
+}
+
+select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath fill='%236B9E95' d='M0 0l6 8 6-8z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 36px;
+}
+
+/* Checkboxes */
+input[type="checkbox"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--turquoise);
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 8px;
+  transition: all 0.3s ease;
+  background: white;
+  vertical-align: middle;
+}
+
+input[type="checkbox"]:hover {
+  border-color: var(--soft-rose);
+  box-shadow: 0 0 0 3px rgba(196, 169, 184, 0.1);
+}
+
+input[type="checkbox"]:checked {
+  background: linear-gradient(135deg, var(--turquoise), var(--soft-turquoise));
+  border-color: var(--turquoise);
+  position: relative;
+}
+
+input[type="checkbox"]:checked::after {
+  content: '✓';
+  position: absolute;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  top: 2px;
+  left: 4px;
+}
+
+/* Checkbox Labels */
+label[style*="display: block"] {
+  display: flex !important;
+  align-items: center;
+  padding: 8px;
+  margin: 4px 0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+label[style*="display: block"]:hover {
+  background: rgba(196, 169, 184, 0.08);
+}
+
+/* Buttons */
+button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 4px;
+}
+
+button {
+  background: linear-gradient(135deg, var(--turquoise), var(--soft-turquoise));
+  color: white;
+  box-shadow: 0 4px 12px rgba(107, 158, 149, 0.2);
+}
+
+button:hover {
+  /* transform: translateY(-2px); */
+  box-shadow: 0 6px 16px rgba(107, 158, 149, 0.3);
+  opacity: 0.95;
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* Links */
+a {
+  color: var(--vintage-rose);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+a:hover {
+  color: white;
+  background: var(--vintage-rose);
+  box-shadow: 0 4px 12px rgba(168, 139, 160, 0.2);
+  opacity: 0.9;
+}
+
+/* Lists */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0;
+}
+
+ul.cook-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+li {
+  padding: 12px 16px;
+  background: white;
+  border-left: 4px solid var(--soft-rose);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+li:hover {
+  border-left-color: var(--turquoise);
+  box-shadow: 0 4px 12px rgba(107, 158, 149, 0.15);
+  background: rgba(251, 248, 243, 0.6);
+}
+
+/* Cook Item */
+.cook-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px !important;
+  background: linear-gradient(135deg, rgba(251, 248, 243, 0.8) 0%, rgba(212, 175, 55, 0.05) 100%) !important;
+  border: 2px solid var(--border-color) !important;
+  border-left: 4px solid var(--accent-gold) !important;
+  border-radius: 10px !important;
+}
+
+.cook-item.prepared {
+  opacity: 0.6;
+  border-left-color: var(--turquoise) !important;
+  background: linear-gradient(135deg, rgba(107, 158, 149, 0.05) 0%, rgba(196, 169, 184, 0.05) 100%) !important;
+}
+
+.cook-item.prepared > div:first-child {
+  text-decoration: line-through;
+  color: #999;
+}
+
+/* Task Item */
+.task-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px !important;
+  background: white !important;
+  border: 1px solid var(--border-color) !important;
+  border-left: 4px solid var(--soft-rose) !important;
+  border-radius: 8px !important;
+  transition: all 0.3s ease;
+}
+
+.task-item.done {
+  opacity: 0.6;
+  border-left-color: var(--turquoise) !important;
+}
+
+.task-item:hover {
+  box-shadow: 0 4px 12px rgba(168, 139, 160, 0.15) !important;
+}
+
+/* Edit Form */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  background: rgba(251, 248, 243, 0.6);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+form input {
+  margin-bottom: 0 !important;
+}
+
+/* Button Group */
+div > button + button {
+  background: linear-gradient(135deg, var(--soft-rose), var(--vintage-rose));
+}
+
+div > button + button:hover {
+  box-shadow: 0 6px 16px rgba(196, 169, 184, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .container, .centered-list {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  h1 {
+    font-size: 1.6em;
+  }
+
+  h2 {
+    font-size: 1.2em;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  a {
+    display: block;
+    text-align: center;
+  }
+}
+
+/* Time Display */
+.time-display {
+  color: var(--accent-gold);
+  font-weight: 700;
+  font-size: 1.2em;
+}
+
+/* Dividers */
+hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+  margin: 20px 0;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(251, 248, 243, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--soft-rose);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--vintage-rose);
+}
