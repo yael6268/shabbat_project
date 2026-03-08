@@ -204,6 +204,38 @@ const ShopingForShabbat = [
 export function getAllShoping() {
     return ShopingForShabbat;
 }
+export function getShopingTypesFromDetails(shabbatDetails) {
+  if (!shabbatDetails) return ['basic'];
+
+  const meals = Array.isArray(shabbatDetails.meals)
+    ? shabbatDetails.meals
+    : (shabbatDetails.meals ? [shabbatDetails.meals] : []);
+
+  const types = ['basic']; // תמיד בסיסי
+
+  if (shabbatDetails.place === 'נוסעים') {
+    types.push('stay');
+  }
+
+  if (shabbatDetails.place === 'מארחים') {
+    types.push('guest');
+  }
+
+  const mapMeal = (m) => {
+    switch (m) {
+      case '1': return 'first';
+      case '2': return 'second';
+      case '3': return 'third';
+      default: return null;
+    }
+  };
+
+  const mealTypes = meals.map(mapMeal).filter(Boolean);
+
+  types.push(...mealTypes);
+
+  return Array.from(new Set(types));
+}
 // export function getShopingForStayWithFamily() {
 //     return shopingForStayWithFamily;
 // }

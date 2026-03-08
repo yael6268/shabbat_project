@@ -3,8 +3,8 @@ export const Shoping2 = (props) => {
     return (
         <li className="shop-item">
             <input type="checkbox" className="custom-checkbox" />
-                {shoping.name}
-                
+                {shoping.name}      
         </li>
     );
 }
+// 

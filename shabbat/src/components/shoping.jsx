@@ -1,5 +1,7 @@
 
 export const Shoping = ({ shoping, onDelete, onUpdate, onEditToggle }) => {
+
+
   return (
     <li className="shop-item">
       {!shoping.isEditing ? (
