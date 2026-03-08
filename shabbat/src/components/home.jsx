@@ -2,8 +2,11 @@ import { useShabbat } from '../context/ShabbatContext';
 import { useState, useEffect } from 'react';
 import { getBasicCooking, getFirstMeal, getSecondMeal, getThirdMeal, getDinnerWithGuests } from '../data/cook';
 import { Link } from 'react-router-dom';
+
 // import { getAllShoping } from '../data/shoping';
 import { getAllShoping, getShopingTypesFromDetails } from '../data/shoping';
+
+
 
 export const Home = () => {
   const { shabbatDetails, setShabbatDetails } = useShabbat();
@@ -12,6 +15,7 @@ export const Home = () => {
     // אפשר כאן להוסיף כל פעולה לאחר עריכת השעה
     console.log("זמן הדלקת נרות:", shabbatDetails.time);
   }
+
 
   // removed handleApply; page recalculates automatically when details change
 
@@ -33,6 +37,7 @@ export const Home = () => {
     const parts = t.split(':').map(Number);
     return parts.length === 2 ? parts[0]*60 + parts[1] : parts[0];
   };
+
   const deriveShopingTypes = () => {
   if (!shabbatDetails) return ['basic'];
 
@@ -67,6 +72,16 @@ export const Home = () => {
 
   return Array.from(new Set(types));
 };
+
+
+  // removed handleApply; page recalculates automatically when details change
+
+
+
+  // remaining cooks (not prepared) shown on home
+
+
+
   useEffect(() => {
     const allMeals = [
       ...getBasicCooking(),
@@ -75,11 +90,16 @@ export const Home = () => {
       ...getThirdMeal(),
       ...getDinnerWithGuests(),
     ];
+
     
     const meals = Array.isArray(shabbatDetails.meals)
+
       ? shabbatDetails.meals
       : (shabbatDetails.meals ? [shabbatDetails.meals] : []);
      
+
+  
+
     const mapMeal = (m) => {
       switch (m) {
         case '1': return 'FirstMeal';
@@ -101,6 +121,7 @@ export const Home = () => {
     setRemainingTime(mins);
     console.log("selectedTypes",selectedTypes,"typesToShow", typesToShow, "preparedIds", preparedIds, "filtered", filtered, "notPrepared", notPrepared, "remainingTime", mins);
   }, [shabbatDetails?.meals, shabbatDetails?.place, shabbatDetails?.hospitality]);
+
  useEffect(() => {
   const allShoping = getAllShoping();
   const typesToShow = getShopingTypesFromDetails(shabbatDetails);
@@ -112,6 +133,9 @@ export const Home = () => {
   setVisibleShoping(filtered);
 
 }, [shabbatDetails?.meals, shabbatDetails?.place]);
+
+
+
   return (
     <>
       {shabbatDetails.time && (
@@ -188,6 +212,7 @@ export const Home = () => {
           <Link to="/cook-list">לרשימת בישולים</Link>
         </div>
       </div>
+
       <div style={{ marginTop: 25 }}>
   <h2>🛒 רשימת קניות לשבת</h2>
 
@@ -201,6 +226,7 @@ export const Home = () => {
     </ul>
   )}
 </div>
+
     </>
   );
 }

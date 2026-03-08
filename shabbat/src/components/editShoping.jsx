@@ -2,9 +2,13 @@ import { useState, useEffect } from "react";
 import { nanoid } from "nanoid";
 import { Shoping } from "./Shoping";
 import { Link } from "react-router-dom";
+
 // import { getAllShoping } from "../data/shoping";
 import { useShabbat } from '../context/ShabbatContext';
 import { getAllShoping, getShopingTypesFromDetails } from "../data/shoping";
+
+
+
 
 const placeNames = {
   basic: "קניות  🛒",
@@ -38,43 +42,42 @@ export const EditShoping = () => {
     setShoping(prev => [...prev, newProduct]);
   };
 
-  // const deriveTypes = () => {
-  //   if (!shabbatDetails) return ['basic'];
+  const deriveTypes = () => {
+    if (!shabbatDetails) return ['basic'];
 
-  //   const meals = Array.isArray(shabbatDetails.meals)
-  //     ? shabbatDetails.meals
-  //     : (shabbatDetails.meals ? [shabbatDetails.meals] : []);
+    const meals = Array.isArray(shabbatDetails.meals)
+      ? shabbatDetails.meals
+      : (shabbatDetails.meals ? [shabbatDetails.meals] : []);
 
-  //   const types = [];
-  //   if (shabbatDetails.hospitality === 'ארוח') types.push('guest');
-  //   if (shabbatDetails.place === 'נוסעים') types.push('stay');
+    const types = [];
+    if (shabbatDetails.hospitality === 'ארוח') types.push('guest');
+    if (shabbatDetails.place === 'נוסעים') types.push('stay');
 
-  //   const mapMeal = (m) => {
-  //     switch (m) {
-  //       case '1': return 'first';
-  //       case '2': return 'second';
-  //       case '3': return 'third';
-  //       default: return null;
-  //     }
-  //   };
+    const mapMeal = (m) => {
+      switch (m) {
+        case '1': return 'first';
+        case '2': return 'second';
+        case '3': return 'third';
+        default: return null;
+      }
+    };
 
-  //   const mealTypes = meals.map(mapMeal).filter(Boolean);
-  //   if (mealTypes.length > 0) {
-  //     types.push('basic', ...mealTypes);
-  //   }
+    const mealTypes = meals.map(mapMeal).filter(Boolean);
+    if (mealTypes.length > 0) {
+      types.push('basic', ...mealTypes);
+    }
 
-  //   return types.length > 0 ? Array.from(new Set(types)) : ['basic'];
-  // };
+    return types.length > 0 ? Array.from(new Set(types)) : ['basic'];
+  };
 
   useEffect(() => {
-  const typesToShow = getShopingTypesFromDetails(shabbatDetails);
+    const typesToShow = deriveTypes();
+    const filtered = Array.isArray(typesToShow) && typesToShow.length > 0
+      ? shoping.filter(s => typesToShow.includes(s.type))
+      : [];
+    setVisibleShoping(filtered);
+  }, [shabbatDetails?.meals, shabbatDetails?.place, shabbatDetails?.hospitality, shoping]);
 
-  const filtered =
-    shoping.filter(s => typesToShow.includes(s.type));
-
-  setVisibleShoping(filtered);
-
-}, [shabbatDetails?.meals, shabbatDetails?.place, shoping]);
   // קבוצות לפי סוג מתוך ה־visibleOnly
   const groupedShoping = visibleShoping.reduce((groups, p) => {
     if (!groups[p.type]) groups[p.type] = [];
