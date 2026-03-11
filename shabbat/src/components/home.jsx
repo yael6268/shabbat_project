@@ -1,232 +1,164 @@
+import React, { useState, useCallback } from 'react';
 import { useShabbat } from '../context/ShabbatContext';
-import { useState, useEffect } from 'react';
-import { getBasicCooking, getFirstMeal, getSecondMeal, getThirdMeal, getDinnerWithGuests } from '../data/cook';
 import { Link } from 'react-router-dom';
-
-// import { getAllShoping } from '../data/shoping';
-import { getAllShoping, getShopingTypesFromDetails } from '../data/shoping';
-
-
+import { getBasicCooking, getFirstMeal, getSecondMeal, getThirdMeal, getDinnerWithGuests } from '../data/cook';
+import { getAllShoping } from '../data/shoping';
+import { getAllTasks } from '../data/task'; 
 
 export const Home = () => {
-  const { shabbatDetails, setShabbatDetails } = useShabbat();
+    const { shabbatDetails, setShabbatDetails } = useShabbat() || {};
+    const [remaining, setRemaining] = useState([]);
+    const [visibleShoping, setVisibleShoping] = useState([]);
+    const [visibleTasks, setVisibleTasks] = useState([]); 
+    const [remainingTime, setRemainingTime] = useState(0);
+    const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleInputBlur = () => {
-    // אפשר כאן להוסיף כל פעולה לאחר עריכת השעה
-    console.log("זמן הדלקת נרות:", shabbatDetails.time);
-  }
-
-
-  // removed handleApply; page recalculates automatically when details change
-
-  const toggleMeal = (num) => {
-    const key = String(num);
-    setShabbatDetails(prev => {
-      const meals = Array.isArray(prev.meals) ? [...prev.meals] : [];
-      const idx = meals.indexOf(key);
-      if (idx === -1) meals.push(key); else meals.splice(idx, 1);
-      return { ...prev, meals };
-    });
-  };
-
-  // remaining cooks (not prepared) shown on home
-  const [remaining, setRemaining] = useState([]);
-  const [visibleShoping, setVisibleShoping] = useState([]);
-  const [remainingTime, setRemainingTime] = useState(0);
-  const parseTime = (t) => {
-    const parts = t.split(':').map(Number);
-    return parts.length === 2 ? parts[0]*60 + parts[1] : parts[0];
-  };
-
-  const deriveShopingTypes = () => {
-  if (!shabbatDetails) return ['basic'];
-
-  const meals = Array.isArray(shabbatDetails.meals)
-    ? shabbatDetails.meals
-    : (shabbatDetails.meals ? [shabbatDetails.meals] : []);
-
-  const types = ['basic']; // תמיד בסיסי
-
-  // מקום
-  if (shabbatDetails.place === 'נוסעים') {
-    types.push('stay');
-  }
-
-  if (shabbatDetails.place === 'מארחים') {
-    types.push('guest');
-  }
-
-  // סעודות
-  const mapMeal = (m) => {
-    switch (m) {
-      case '1': return 'first';
-      case '2': return 'second';
-      case '3': return 'third';
-      default: return null;
-    }
-  };
-
-  const mealTypes = meals.map(mapMeal).filter(Boolean);
-
-  types.push(...mealTypes);
-
-  return Array.from(new Set(types));
-};
-
-
-  // removed handleApply; page recalculates automatically when details change
-
-
-
-  // remaining cooks (not prepared) shown on home
-
-
-
-  useEffect(() => {
-    const allMeals = [
-      ...getBasicCooking(),
-      ...getFirstMeal(),
-      ...getSecondMeal(),
-      ...getThirdMeal(),
-      ...getDinnerWithGuests(),
-    ];
-
-    
-    const meals = Array.isArray(shabbatDetails.meals)
-
-      ? shabbatDetails.meals
-      : (shabbatDetails.meals ? [shabbatDetails.meals] : []);
-     
-
-  
-
-    const mapMeal = (m) => {
-      switch (m) {
-        case '1': return 'FirstMeal';
-        case '2': return 'SecondMeal';
-        case '3': return 'ThirdMeal';
-        default: return null;
-      }
+    const parseTime = (t) => {
+        if (!t || typeof t !== 'string') return 0;
+        const parts = t.split(':').map(Number);
+        return parts.length === 2 ? parts[0] * 60 + parts[1] : (Number(t) || 0);
     };
-    const selectedTypes = meals.map(mapMeal).filter(Boolean);
-    const wantsDinnerWithGuests = shabbatDetails?.hospitality === 'ארוח' || shabbatDetails?.place === 'מארחים';
-    const typesToShow = (selectedTypes.length > 0 || wantsDinnerWithGuests)
-      ? Array.from(new Set(['BasicCooking', ...selectedTypes, ...(wantsDinnerWithGuests ? ['DinnerWithGuests'] : [])]))
-      : [];
-    const preparedIds = JSON.parse(localStorage.getItem('preparedCooks') || '[]');
-    const filtered = typesToShow.length > 0 ? allMeals.filter(m => typesToShow.includes(m.type)) : [];
-    const notPrepared = filtered.filter(m => !preparedIds.includes(m.id));
-    setRemaining(notPrepared);
-    const mins = notPrepared.reduce((acc, item) => acc + parseTime(item.PreparationTime), 0);
-    setRemainingTime(mins);
-    console.log("selectedTypes",selectedTypes,"typesToShow", typesToShow, "preparedIds", preparedIds, "filtered", filtered, "notPrepared", notPrepared, "remainingTime", mins);
-  }, [shabbatDetails?.meals, shabbatDetails?.place, shabbatDetails?.hospitality]);
 
- useEffect(() => {
-  const allShoping = getAllShoping();
-  const typesToShow = getShopingTypesFromDetails(shabbatDetails);
+    const toggleMeal = (num) => {
+        const key = String(num);
+        const currentMeals = Array.isArray(shabbatDetails.meals) ? [...shabbatDetails.meals] : [];
+        const index = currentMeals.indexOf(key);
+        if (index === -1) currentMeals.push(key);
+        else currentMeals.splice(index, 1);
+        setShabbatDetails({ ...shabbatDetails, meals: currentMeals });
+    };
 
-  const filtered = allShoping.filter(s =>
-    typesToShow.includes(s.type)
-  );
+    const handleCalculate = useCallback(() => {
+        if (!shabbatDetails) return;
 
-  setVisibleShoping(filtered);
+        const meals = Array.isArray(shabbatDetails.meals) ? shabbatDetails.meals : [];
 
-}, [shabbatDetails?.meals, shabbatDetails?.place]);
+        // --- 1. בישולים ---
+        const allCooks = [...getBasicCooking(), ...getFirstMeal(), ...getSecondMeal(), ...getThirdMeal(), ...getDinnerWithGuests()];
+        const mapMealToCook = (m) => (m === '1' ? 'FirstMeal' : m === '2' ? 'SecondMeal' : m === '3' ? 'ThirdMeal' : null);
+        const selectedCookTypes = meals.map(mapMealToCook).filter(Boolean);
+        const cookTypesToShow = Array.from(new Set(['BasicCooking', ...selectedCookTypes, ...(shabbatDetails.place === 'מארחים' ? ['DinnerWithGuests'] : [])]));
+        const preparedIds = JSON.parse(localStorage.getItem('preparedCooks') || '[]');
+        const filteredCooks = allCooks.filter(m => cookTypesToShow.includes(m.type) && !preparedIds.includes(m.id));
+        setRemaining(filteredCooks);
+        setRemainingTime(filteredCooks.reduce((acc, item) => acc + parseTime(item.PreparationTime), 0));
 
+        // --- 2. קניות (מעודכן לפי הלוגיקה של EditShoping) ---
+        const allShoping = getAllShoping ? getAllShoping() : [];
+        
+        // יצירת רשימת הטיפוסים שצריך להציג (בדיוק כמו deriveTypes)
+        const typesToShow = ['basic'];
+        if (shabbatDetails.place === 'נוסעים') typesToShow.push('stay');
+        if (shabbatDetails.place === 'מארחים') typesToShow.push('guest');
+        
+        meals.forEach(m => {
+            if (m === '1') typesToShow.push('first');
+            if (m === '2') typesToShow.push('second');
+            if (m === '3') typesToShow.push('third');
+        });
 
+        const filteredShoping = allShoping.filter(s => typesToShow.includes(s.type));
+        setVisibleShoping(filteredShoping);
 
-  return (
-    <>
-      {shabbatDetails.time && (
-        <h1>זמן הדלקת נרות: {shabbatDetails.time}</h1>
-      )}
+        // --- 3. משימות (גם כאן הוספתי סינון לפי סעודות אם תרצי) ---
+        const allTasks = getAllTasks ? getAllTasks() : [];
+        const filteredTasks = allTasks.filter(task => {
+            const p = shabbatDetails.place;
+            let matchesPlace = false;
+            if (p === "בבית") matchesPlace = (task.place === "basic" || task.place === "atHome");
+            else if (p === "נוסעים") matchesPlace = (task.place === "basic" || task.place === "traveling");
+            else if (p === "מארחים") matchesPlace = (task.place === "basic" || task.place === "atHome" || task.place === "hospitality");
+            
+            // סינון משימות לפי סעודות (מבוסס על שדה mealType במשימה)
+            const matchesMeal = !task.mealType || meals.includes(String(task.mealType));
+            return matchesPlace && matchesMeal;
+        });
+        setVisibleTasks(filteredTasks.filter(t => t.status !== "done"));
 
-      <label htmlFor="timeShabbat">זמן כניסת שבת</label><br />
-      <input
-        type="time"
-        name="timeShabbat"
-        value={shabbatDetails.time}
-        onChange={(e) =>
-          setShabbatDetails({ ...shabbatDetails, time: e.target.value })
-        }
-        onBlur={handleInputBlur}
-      /><br />
+        setIsSubmitted(true);
+    }, [shabbatDetails]);
 
-      <label htmlFor="place">היכן נמצאים?</label><br />
-      <select
-        name="place"
-        id="place"
-        value={shabbatDetails.place}
-        onChange={(e) =>
-          setShabbatDetails({ ...shabbatDetails, place: e.target.value })
-        }
-      >
-        <option>בבית</option>
-        <option>נוסעים</option>
-        <option>מארחים</option>
-      </select><br />
+    if (!shabbatDetails) return <div className="home-container">טוען...</div>;
 
-      <label htmlFor="countmeal">כמות סעודות</label><br />
-      {/* keep as checkboxes - multi selection supported */}
+    return (
+        <div className="home-container" dir="rtl">
+            <header className="home-hero">
+                <h1>🕯️🕯️{shabbatDetails.time ? `כניסת שבת: ${shabbatDetails.time}` : "ניהול שבת קודש"}</h1>
+            </header>
 
-      <label style={{ display: 'block', marginTop: 6 }}>
-        <input type="checkbox" id="meal1" checked={Array.isArray(shabbatDetails.meals) && shabbatDetails.meals.includes('1')} onChange={() => toggleMeal(1)} />{' '}
-        סעודה ראשונה
-      </label>
-      <label style={{ display: 'block' }}>
-        <input type="checkbox" id="meal2" checked={Array.isArray(shabbatDetails.meals) && shabbatDetails.meals.includes('2')} onChange={() => toggleMeal(2)} />{' '}
-        סעודה שנייה
-      </label>
-      <label style={{ display: 'block' }}>
-        <input type="checkbox" id="meal3" checked={Array.isArray(shabbatDetails.meals) && shabbatDetails.meals.includes('3')} onChange={() => toggleMeal(3)} />{' '}
-        סעודה שלישית
-      </label>
+            <div className="home-section-card settings-panel">
+                <h3>⚙️ הגדרות שבת</h3>
+                <div className="settings-row">
+                    <div className="input-box">
+                        <label>זמן כניסה:</label>
+                        <input type="time" className="modern-input" value={shabbatDetails.time || ""} onChange={(e) => setShabbatDetails({...shabbatDetails, time: e.target.value})} />
+                    </div>
+                    <div className="input-box">
+                        <label>היכן נהיה?</label>
+                        <select className="modern-select" value={shabbatDetails.place || "בבית"} onChange={(e) => setShabbatDetails({...shabbatDetails, place: e.target.value})}>
+                            <option value="בבית">בבית</option>
+                            <option value="נוסעים">נוסעים</option>
+                            <option value="מארחים">מארחים</option>
+                        </select>
+                    </div>
+                </div>
 
-      {/* <label htmlFor="hospitality">ארוח</label><br />
-      <select
-        name="hospitality"
-        id="hospitality"
-        value={shabbatDetails.hospitality}
-        onChange={(e) =>
-          setShabbatDetails({ ...shabbatDetails, hospitality: e.target.value })
-        }
-      >
-        <option>ארוח</option>
-        <option>לבד בבית</option>
-      </select><br /> */}
+                <div className="meals-picker">
+                    <label className="picker-label">בחירת סעודות:</label>
+                    <div className="checkbox-group-modern">
+                        {[1, 2, 3].map(num => (
+                            <label key={num} className={`meal-chip ${shabbatDetails.meals?.includes(String(num)) ? 'active' : ''}`}>
+                                <input 
+                                    type="checkbox" 
+                                    checked={shabbatDetails.meals?.includes(String(num))} 
+                                    onChange={() => toggleMeal(num)} 
+                                />
+                                <span>סעודה {num === 1 ? "א'" : num === 2 ? "ב'" : "ג'"}</span>
+                            </label>
+                        ))}
+                    </div>
+                </div>
 
-      <div style={{ marginTop: 18 }}>
-        <h2>⏱️ זמן נותר להכנה: {remainingTime > 0 ? `${Math.floor(remainingTime/60)}:${(remainingTime%60).toString().padStart(2,'0')}` : '0'} שעות</h2>
-        <h2>מה שנשאר להכין</h2>
-        {remaining.length === 0 ? (
-          <p>אין פריטים להצגה — כל מה שנבחר מסומן כ"מוכן" או לא נבחרו סעודות</p>
-        ) : (
-          <ul>
-            {remaining.map(r => (
-              <li key={r.id}>{r.name} {r.PreparationTime}</li>
-            ))}
-          </ul>
-        )}
-        <div style={{ marginTop: 8 }}>
-          <Link to="/cook-list">לרשימת בישולים</Link>
+                <div style={{ textAlign: 'center', marginTop: '20px' }}>
+                    <button className="add-trigger-btn" onClick={handleCalculate}>
+                        קבל תוכנית שבת
+                    </button>
+                </div>
+            </div>
+
+            {isSubmitted && (
+                <div className="dashboard-grid">
+                    <section className="home-section-card">
+                        <h2>🍲 בישולים ({remaining.length})</h2>
+                        <ul className="mini-list full-list">
+                            {remaining.length > 0 ? remaining.map(r => (
+                                <li key={r.id} className="home-item-fade"><span>{r.name}</span></li>
+                            )) : <p className="all-done-text">הכל מוכן! ✨</p>}
+                        </ul>
+                        <Link to="/edit-cook" className="styled-link">✏️ לניהול המלא</Link>
+                    </section>
+
+                    <section className="home-section-card">
+                        <h2>🛒 קניות ({visibleShoping.length})</h2>
+                        <ul className="mini-list full-list">
+                            {visibleShoping.length > 0 ? visibleShoping.map(s => (
+                                <li key={s.id} className="home-item-fade">{s.name}</li>
+                            )) : <p className="all-done-text">אין קניות נדרשות</p>}
+                        </ul>
+                        <Link to="/edit-shoping" className="styled-link">🛍️ לניהול קניות</Link>
+                    </section>
+
+                    <section className="home-section-card">
+                        <h2>📋 משימות ({visibleTasks.length})</h2>
+                        <ul className="mini-list full-list">
+                            {visibleTasks.length > 0 ? visibleTasks.map(t => (
+                                <li key={t.id} className="home-item-fade">{t.title}</li>
+                            )) : <p className="all-done-text">הכל בוצע! ✨</p>}
+                        </ul>
+                        <Link to="/task-list" className="styled-link">✏️ לניהול משימות</Link>
+                    </section>
+                </div>
+            )}
         </div>
-      </div>
-
-      <div style={{ marginTop: 25 }}>
-  <h2>🛒 רשימת קניות לשבת</h2>
-
-  {visibleShoping.length === 0 ? (
-    <p>אין פריטים להצגה</p>
-  ) : (
-    <ul>
-      {visibleShoping.map(item => (
-        <li key={item.id}>{item.name}</li>
-      ))}
-    </ul>
-  )}
-</div>
-
-    </>
-  );
-}
+    );
+};

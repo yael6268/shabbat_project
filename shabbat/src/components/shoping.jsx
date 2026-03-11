@@ -1,26 +1,32 @@
-
 export const Shoping = ({ shoping, onDelete, onUpdate, onEditToggle }) => {
 
-
   return (
-    <li className="shop-item">
+    <li className={`shop-item ${shoping.checked ? "checked" : ""}`}>
       {!shoping.isEditing ? (
         <>
-          <span>{shoping.name}</span><br />
-          <button onClick={() => onEditToggle(shoping.id)}>✏️ עריכה</button>
-          <button onClick={() => onDelete(shoping.id)}>🗑️ מחק</button>
-          <br /><br />
+          <span className="item-name">{shoping.name}</span>
+          <div className="button-group">
+            <button onClick={() => onEditToggle(shoping.id)}>
+              <span className="btn-icon">✏️</span> עריכה
+            </button>
+            <button onClick={() => onDelete(shoping.id)}>
+              <span className="btn-icon">🗑️</span> מחק
+            </button>
+          </div>
         </>
       ) : (
-        <>
+        <div className="edit-mode">
           <input
             type="text"
             value={shoping.name}
             onChange={(e) => onUpdate(shoping.id, "name", e.target.value)}
             placeholder="שם מוצר"
+            className="modern-input"
           />
-          <button onClick={() => onEditToggle(shoping.id)}>💾 שמירה</button>
-        </>
+          <button onClick={() => onEditToggle(shoping.id)}>
+            <span className="btn-icon">💾</span> שמירה
+          </button>
+        </div>
       )}
     </li>
   );

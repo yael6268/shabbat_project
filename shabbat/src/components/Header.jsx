@@ -8,7 +8,7 @@ export const Header = () => {
             <nav className="nav">
  
                 <ul className="nav-menu">
-                    <h1>ניהול שבת</h1>
+                    <h1>שבת קודש</h1>
                     <li>
                         <Link to="/">עמוד הבית</Link>
                     </li>

@@ -1,231 +1,152 @@
-/* ================================
-   VARIABLES
-================================ */
+/* --- פונטים ומשתנים --- */
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;800&display=swap');
+
 :root {
-  --primary-color: #fdfbf7;
-  --secondary-bg: #ffffff;
-  --text-color: #4a4a4a;
-  --accent-color: #d4af37;
-  --border-radius: 12px;
-  --shadow: 0 4px 15px rgba(0,0,0,0.05);
-  --radius: 10px;
-  --muted: #52697a;
-  --accent: #2b6f77;
+  --primary-dark: #2c3e50; /* כחול פלדה עמוק */
+  --accent-gold: #d4af37;
+  --accent-gold-light: #f1e4bc;
+  --glass-bg: rgba(255, 255, 255, 0.9);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --shadow-2026: 0 10px 30px rgba(0, 0, 0, 0.08);
+  --font-main: 'Assistant', sans-serif;
 }
 
-/* ================================
-   BASE
-================================ */
-html, body, #root {
-  height: 100%;
+/* --- הגדרות בסיס --- */
+body {
   margin: 0;
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  direction: rtl;
-  text-align: right;
-  background-color: var(--primary-color);
-  color: var(--text-color);
-}
-
-h1,h2,h3 { text-align: center; font-weight: 300; letter-spacing: 1px; color: var(--accent-color); }
-h1 { font-size: 3.2em; line-height: 1.1; }
-h3 { color: var(--accent); margin-top: 18px; }
-
-a { font-weight: 500; color: #646cff; text-decoration: inherit; }
-a:hover { color: #535bf2; }
-
-/* ================================
-   LAYOUT
-================================ */
-.app {
-  width: min(980px, 96%);
-  margin: 0 auto;
-  padding: 28px;
-  background: var(--secondary-bg);
-  border-radius: calc(var(--radius) + 4px);
-  box-shadow: 0 6px 18px rgba(16,42,67,0.04);
-  border: 1px solid rgba(16,42,67,0.04);
-}
-
-.main-content { display: flex; flex-direction: column; align-items: center; padding: 18px 0; text-align: center; }
-
-/* ================================
-   LISTS
-================================ */
-.centered-list {
-  max-width: 760px;
-  margin: 12px auto;
-  padding: 8px 0;
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.shop-list li, .cook-list li, .task-list li {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-  width: 100%;
-  max-width: 500px;
-  background: var(--secondary-bg);
-  margin-bottom: 12px;
-  padding: 15px 25px;
-  border-radius: var(--border-radius);
-  border-bottom: 5px solid #f2e6d5;
-  border: 2px solid rgba(0,0,0,0.05);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-  transition: transform 0.2s ease;
-}
-
-.shop-list li:hover { transform: translateY(-2px); }
-
-.shop-list li span, .shop-list li p, .shop-list li div { margin: 0; text-align: center; flex-grow: 0; }
-.shop-list li span, .shop-list li div { font-size: 1.1rem; font-weight: 500; margin-bottom: 1px; }
-
-/* Cook list prepared state */
-.cook-list li.prepared {
-  background-color: #f0fff4;
-  border-right: 6px solid #81c784;
-  border-bottom: 2px solid #81c784;
-}
-.cook-list li.prepared * { color: #2e7d32; }
-
-/* Task completed state */
-.task-item.done {
-  background-color: rgba(244,231,188,0.3);
-  border-right: 6px solid #d0ac37;
-  color: #b79523;
-}
-
-/* ================================
-   BUTTONS - LIGHT & MODERN
-================================ */
-button, .btn {
-  border-radius: 8px;
-  border: 1px solid rgba(0,0,0,0.1);
-  padding: 10px 25px;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  display: block;
-  margin: 15px auto;
-  background-color: #ffffff; /* רקע בהיר */
-  color: #4a4a4a;           /* טקסט כהה */
-  box-shadow: 0 2px 1px #D4AF37; /* צל עדין */
-  transition: all 0.25s ease;
-}
-
-button:hover, .btn:hover {
-  background-color: #f9f9f9; /* מעט כהה בהחלפה */
-  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-}
-
-.btn.secondary {
-  background-color: #f0f0f0;
-  color: #555555;
-  border: 1px solid #ddd;
-}
-
-/* ================================
-   CARDS & FORMS
-================================ */
-.card {
-  background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.3));
-  border-radius: var(--radius);
-  padding: 16px;
-  margin-bottom: 12px;
-  box-shadow: 0 6px 18px rgba(21,28,36,0.04);
-  border: 1px solid rgba(33,37,41,0.03);
-}
-
-input[type="text"], input[type="number"], select {
-  width: 80%;
-  max-width: 520px;
-  padding: 10px 12px;
-  margin: 8px auto;
-  display: block;
-  border-radius: 8px;
-  border: 1px solid rgba(33,37,41,0.06);
-  background: rgba(255,255,255,0.6);
-}
-
-input[type="checkbox"] { accent-color: var(--accent-color); width: 20px; height: 20px; }
-
-/* ================================
-   GROUP BOX - CENTER & WIDER
-================================ */
-.group-box {
-  border: 1px solid rgba(33,37,41,0.06);
-  background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.65));
-  padding: 30px 28px;
-  border-radius: 12px;
-  margin: 20px auto;
-  box-shadow: 0 6px 18px rgba(21,28,36,0.03);
-  max-width: 840px;   /* רחב יותר */
-  width: 90%;         /* גמיש למסכים שונים */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-/* ================================
-   LISTS INSIDE GROUP
-================================ */
-.group-box .task-list,
-.group-box .shop-list,
-.group-box ul {
-  width: 100%;
-  max-width: 800px;        /* לא יהיה רחב מדי */
-  margin: 12px auto;
   padding: 0;
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;     /* מרכז כל פריט */
-  justify-content: center;
+  background: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=2000') no-repeat center center fixed;
+  background-size: cover;
+  font-family: var(--font-main);
+  color: var(--primary-dark);
+  direction: rtl;
+}
+
+/* --- קונטיינר ראשי מורחב --- */
+.centered-list, .cook-list, .shop-list-container, .home-container, .cook-list-container {
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 40px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-2026);
   text-align: center;
 }
 
-/* ================================
-   LIST ITEMS (LI) - WIDER
-================================ */
-.group-box .task-list li,
-.group-box .shop-list li,
-.group-box ul li {
-  width: 100%;             /* תופס את כל רוחב הרשימה */
-  max-width: 760px;        /* לא תופס יותר מדי */
-  display: flex;
-  justify-content: center; /* מרכז את התוכן */
+/* --- שורת מוצר/משימה מורחבת --- */
+
+
+/* --- כפתורי "הוספה" - מרכוז באמצע העמוד --- */
+.add-trigger-btn, .isAddCookFunc, button[class*="add"] {
+  display: flex !important;
+  margin: 30px auto !important; /* מרכוז אוטומטי לאמצע */
+  float: none !important;
+}
+
+/* --- עיצוב כפתורים (Slim & Low) --- */
+button, .styled-link, .save-btn, .cancel-btn {
+  display: inline-flex;
   align-items: center;
-  gap: 15px;
-  margin-bottom: 12px;
-  padding: 18px 28px;      /* מרווח פנימי גדול יותר */
-  border-radius: var(--border-radius);
-  background: var(--secondary-bg);
-  box-shadow: var(--shadow);
-  transition: transform 0.2s ease;
+  justify-content: center;
+  gap: 10px;
+  
+  /* מילוי דק (Slim) */
+  padding: 6px 25px;    /* הקטנו מ-10 ל-6 מלמעלה ומלמטה */
+  border-radius: 6px;
+  
+  /* מיקום נמוך יותר */
+  margin-top: 12px;     
+  
+  /* צבע כחול-פלדה מודרני */
+  background: linear-gradient(135deg,rgba(212, 175, 55, 0.3) 0%,rgba(212, 175, 55, 0.3) 100%);
+  color: #2c3e50 !important;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  white-space: nowrap;
 }
 
-.group-box .task-list li:hover,
-.group-box .shop-list li:hover {
-  transform: translateY(-2px);
+button:hover {
+  background: linear-gradient(135deg, rgba(212, 174, 51, 0.3) 0%, rgba(212, 175, 55, 0.3) 100%);
+  transform: translateY(2px); /* שקיעה בלחיצה */
+  box-shadow: 0 4px 10px rgba(212, 175, 55, 0.2);
 }
 
-.group-box h3 { margin: 0 0 8px 0; font-size: 1.05rem; }
-.group-actions { display: flex; justify-content: center; gap: 8px; margin-top: 8px; }
+/* --- עיצוב קישורים --- */
+a {
+  color: #34495e;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+a:hover {
+  color: #2c3e50;
+}
 
-/* ================================
-   RESPONSIVE
-================================ */
-@media (max-width: 640px) {
-  input[type="text"], input[type="number"], select { width: 100%; }
-  .app { padding: 16px; }
-  ul.shop-list li, ul.task-list li, ul.cook-list li { flex-wrap: wrap; align-items: center; }
-  .item-left { width: 100%; justify-content: flex-start; }
-  ul.shop-list li button { margin-left: 0; margin-top: 0; }
+/* --- מרווח בין כפתורים בשורה --- */
+.button-group, #buttons {
+  display: flex;
+  gap: 40px; /* מרווח גדול בין מחיקה לעריכה */
+  align-items: center;
+}
+
+/* --- איקונים מוזהבים --- */
+.btn-icon {
+  font-size: 1.1rem;
+  background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* --- אינפוטים --- */
+input[type="text"], input[type="number"], input[type="time"], select {
+  padding: 8px 15px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  margin: 5px;
+  outline: none;
+}
+
+/* --- כותרות --- */
+h1, h2 {
+  font-weight: 800;
+  font-size: 2.2rem;
+  color: var(--primary-dark);
+  margin-bottom: 30px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+}
+
+/* --- דשבורד עמוד הבית --- */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  margin-top: 20px;
+}*
+
+.home-section-card {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.04);
+}
+
+.checked, .done, .prepared {
+  opacity: 0.3;
+  filter: grayscale(100%);
+  text-decoration: line-through;
+}
+/* הסטייל שגורם למוצר להיות בהיר עם קו חוצה */
+.shop-item.checked span, 
+.shop-item.checked .item-name,
+.task-item.checked span {
+  text-decoration: line-through; /* מתיחת קו */
+  opacity: 0.5;                  /* הפיכה לבהיר */
+  transition: all 0.3s ease;
 }
