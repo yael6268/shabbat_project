@@ -1,5 +1,252 @@
+/* --- Luxury Preparations Card (Right) --- */
+.lux-prep-card {
+  background: linear-gradient(135deg, rgba(255,245,225,0.92) 80%, #f7f3ec 100%);
+  margin-top: 0;
+  margin-bottom: 40px;
+  padding: 36px 28px 32px 28px;
+  min-width: 340px;
+  max-width: 1100px;
+  width: 100%;
+  border-radius: 28px;
+  box-shadow: 0 8px 32px 0 rgba(90, 58, 27, 0.10);
+  border: 1.5px solid #e7d3b2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.lux-prep-header {
+  font-family: 'Playfair Display', 'Times New Roman', serif;
+  font-size: 2.1rem;
+  color: #8d6748;
+  margin-bottom: 28px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-align: center;
+}
+.lux-prep-grid {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  width: 100%;
+  justify-content: center;
+}
+.lux-prep-col {
+  background: rgba(255,255,255,0.65);
+  border-radius: 22px;
+  box-shadow: 0 2px 12px rgba(212,175,55,0.06);
+  padding: 22px 18px 18px 18px;
+  min-width: 220px;
+  max-width: 320px;
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.lux-prep-col-header {
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 1.15rem;
+  color: #b08a5a;
+  font-weight: 700;
+  margin-bottom: 12px;
+  letter-spacing: 0.07em;
+  text-align: center;
+}
+.lux-prep-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+.lux-prep-item {
+  font-family: 'Assistant', Arial, sans-serif;
+  font-size: 1.05rem;
+  color: #5a3a1b;
+  background: rgba(255,255,255,0.85);
+  border-radius: 12px;
+  margin-bottom: 10px;
+  padding: 8px 12px;
+  box-shadow: 0 1px 4px rgba(212,175,55,0.04);
+  text-align: center;
+  transition: background 0.2s;
+}
+.lux-prep-item.lux-done {
+  color: #b08a5a;
+  background: rgba(244, 231, 188, 0.25);
+  font-style: italic;
+}
+@media (max-width: 900px) {
+  .lux-prep-grid {
+    flex-direction: column;
+    gap: 18px;
+    align-items: center;
+  }
+  .lux-prep-col {
+    min-width: 180px;
+    max-width: 100%;
+    width: 100%;
+  }
+}
+/* --- Luxury Shabbat Card (Left) --- */
+.lux-cards-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+.lux-card {
+  background: rgba(247, 243, 236, 0.82);
+  backdrop-filter: blur(14px);
+  border-radius: 28px;
+  box-shadow: 0 8px 32px 0 rgba(90, 58, 27, 0.10);
+  padding: 38px 32px 32px 32px;
+  min-width: 340px;
+  max-width: 400px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1.5px solid #e7d3b2;
+}
+.lux-shabbat-card {
+  background: linear-gradient(135deg, rgba(255,245,225,0.92) 80%, #f7f3ec 100%);
+}
+.lux-card-header {
+  font-family: 'Playfair Display', 'Times New Roman', serif;
+  font-size: 2.1rem;
+  color: #8d6748;
+  margin-bottom: 18px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-align: center;
+}
+.lux-card-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+.lux-time-row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+.lux-time-input {
+  font-size: 1.3rem;
+  border-radius: 18px;
+  border: 1.5px solid #e7d3b2;
+  padding: 8px 24px;
+  background: rgba(255,255,255,0.7);
+  color: #5a3a1b;
+  outline: none;
+  width: 160px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(212,175,55,0.04);
+  margin: 0 12px;
+}
+.lux-radio-row {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  width: 100%;
+}
+.lux-radio {
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 1.05rem;
+  color: #8d6748;
+  background: rgba(255,255,255,0.6);
+  border-radius: 12px;
+  padding: 7px 18px 7px 18px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+  border: 1.2px solid #e7d3b2;
+  transition: background 0.2s, border 0.2s;
+}
+.lux-radio input[type="radio"] {
+  accent-color: #d4af37;
+  margin-left: 6px;
+  width: 18px;
+  height: 18px;
+}
+.lux-radio input[type="radio"]:focus {
+  outline: 2px solid #d4af37;
+}
+.lux-checkbox-row {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  width: 100%;
+}
+.lux-checkbox {
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 1.05rem;
+  color: #8d6748;
+  background: rgba(255,255,255,0.6);
+  border-radius: 12px;
+  padding: 7px 18px 7px 18px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+  border: 1.2px solid #e7d3b2;
+  transition: background 0.2s, border 0.2s;
+}
+.lux-checkbox input[type="checkbox"] {
+  accent-color: #8d6748;
+  margin-left: 6px;
+  width: 18px;
+  height: 18px;
+}
+.lux-checkbox input[type="checkbox"]:focus {
+  outline: 2px solid #8d6748;
+}
+.lux-submit-btn {
+  width: 100%;
+  background: #8d6748;
+  color: #fff;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 18px;
+  padding: 13px 0;
+  margin-top: 18px;
+  box-shadow: 0 2px 8px rgba(141,103,72,0.08);
+  cursor: pointer;
+  letter-spacing: 0.08em;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.lux-submit-btn:hover {
+  background: #5a3a1b;
+  box-shadow: 0 4px 16px rgba(141,103,72,0.13);
+}
+/* --- Luxury Hero Section --- */
+.lux-hero {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 32px;
+  margin-bottom: 36px;
+}
+.lux-hero-title {
+  font-family: 'Playfair Display', 'Times New Roman', serif;
+  font-size: 3.2rem;
+  color: #5a3a1b;
+  letter-spacing: 0.12em;
+  text-align: center;
+  font-weight: 700;
+  background: none;
+  margin: 0;
+  padding: 0 12px;
+  text-shadow: 0 2px 12px rgba(141, 103, 72, 0.08);
+}
 /* --- פונטים ומשתנים --- */
-@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Assistant:wght@400;700&family=Playfair+Display:wght@700&display=swap');
 
 :root {
   --primary-dark: #2c3e50; /* כחול פלדה עמוק */
@@ -12,26 +259,29 @@
 }
 
 /* --- הגדרות בסיס --- */
-body {
+body, html {
   margin: 0;
   padding: 0;
+  min-height: 100vh;
+  width: 100vw;
+  font-family: 'Assistant', Arial, sans-serif;
+  color: #5a3a1b;
   background: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=2000') no-repeat center center fixed;
   background-size: cover;
-  font-family: var(--font-main);
-  color: var(--primary-dark);
+  background-attachment: fixed;
   direction: rtl;
 }
 
 /* --- קונטיינר ראשי מורחב --- */
-.centered-list, .cook-list, .shop-list-container, .home-container, .cook-list-container {
+.home-container {
   max-width: 1200px;
   margin: 30px auto;
-  padding: 40px;
-  background: var(--glass-bg);
+  padding: 40px 10px;
+  background: rgba(247, 243, 236, 0.82);
   backdrop-filter: blur(15px);
-  border-radius: 20px;
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--shadow-2026);
+  border-radius: 28px;
+  border: 1.5px solid #e7d3b2;
+  box-shadow: 0 8px 32px 0 rgba(90, 58, 27, 0.10);
   text-align: center;
 }
 
@@ -46,36 +296,31 @@ body {
 }
 
 /* --- עיצוב כפתורים (Slim & Low) --- */
+
 button, .styled-link, .save-btn, .cancel-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  
-  /* מילוי דק (Slim) */
-  padding: 6px 25px;    /* הקטנו מ-10 ל-6 מלמעלה ומלמטה */
-  border-radius: 6px;
-  
-  /* מיקום נמוך יותר */
-  margin-top: 12px;     
-  
-  /* צבע כחול-פלדה מודרני */
-  background: linear-gradient(135deg,rgba(212, 175, 55, 0.3) 0%,rgba(212, 175, 55, 0.3) 100%);
-  color: #2c3e50 !important;
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  
-  font-weight: 600;
-  font-size: 0.9rem;
+  padding: 12px 32px;
+  border-radius: 18px;
+  margin-top: 12px;
+  background: #8d6748;
+  color: #fff !important;
+  border: none;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1.08rem;
   cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(141,103,72,0.08);
   white-space: nowrap;
+  letter-spacing: 0.08em;
 }
-
-button:hover {
-  background: linear-gradient(135deg, rgba(212, 174, 51, 0.3) 0%, rgba(212, 175, 55, 0.3) 100%);
-  transform: translateY(2px); /* שקיעה בלחיצה */
-  box-shadow: 0 4px 10px rgba(212, 175, 55, 0.2);
+button:hover, .styled-link:hover, .save-btn:hover, .cancel-btn:hover {
+  background: #5a3a1b;
+  color: #fff !important;
+  box-shadow: 0 4px 16px rgba(141,103,72,0.13);
 }
 
 /* --- עיצוב קישורים --- */
@@ -106,22 +351,33 @@ a:hover {
 
 /* --- אינפוטים --- */
 input[type="text"], input[type="number"], input[type="time"], select {
-  padding: 8px 15px;
-  border-radius: 6px;
-  border: 1px solid #ddd;
-  margin: 5px;
+  padding: 10px 22px;
+  border-radius: 14px;
+  border: 1.5px solid #e7d3b2;
+  margin: 7px 0;
   outline: none;
+  background: rgba(255,255,255,0.7);
+  color: #5a3a1b;
+  font-size: 1.08rem;
+  font-family: 'Assistant', Arial, sans-serif;
+  box-shadow: 0 1px 4px rgba(212,175,55,0.04);
+  transition: border 0.2s;
+}
+input[type="text"]:focus, input[type="number"]:focus, input[type="time"]:focus, select:focus {
+  border: 1.5px solid #d4af37;
 }
 
-/* --- כותרות --- */
-h1, h2 {
-  font-weight: 800;
-  font-size: 2.2rem;
-  color: var(--primary-dark);
-  margin-bottom: 30px;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+a {
+  color: #8d6748;
+  text-decoration: none;
+  font-weight: 700;
+  font-family: 'Montserrat', Arial, sans-serif;
+  letter-spacing: 0.08em;
+  transition: color 0.2s;
 }
-
+a:hover {
+  color: #d4af37;
+}
 /* --- דשבורד עמוד הבית --- */
 .dashboard-grid {
   display: grid;

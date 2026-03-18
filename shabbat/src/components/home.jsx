@@ -82,83 +82,119 @@ export const Home = () => {
 
     return (
         <div className="home-container" dir="rtl">
-            <header className="home-hero">
-                <h1>🕯️🕯️{shabbatDetails.time ? `כניסת שבת: ${shabbatDetails.time}` : "ניהול שבת קודש"}</h1>
-            </header>
+            <section className="lux-hero">
+                <h1 className="lux-hero-title">WELCOME TO SHABBAT</h1>
+            </section>
 
-            <div className="home-section-card settings-panel">
-                <h3>⚙️ הגדרות שבת</h3>
-                <div className="settings-row">
-                    <div className="input-box">
-                        <label>זמן כניסה:</label>
-                        <input type="time" className="modern-input" value={shabbatDetails.time || ""} onChange={(e) => setShabbatDetails({...shabbatDetails, time: e.target.value})} />
-                    </div>
-                    <div className="input-box">
-                        <label>היכן נהיה?</label>
-                        <select className="modern-select" value={shabbatDetails.place || "בבית"} onChange={(e) => setShabbatDetails({...shabbatDetails, place: e.target.value})}>
-                            <option value="בבית">בבית</option>
-                            <option value="נוסעים">נוסעים</option>
-                            <option value="מארחים">מארחים</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div className="meals-picker">
-                    <label className="picker-label">בחירת סעודות:</label>
-                    <div className="checkbox-group-modern">
-                        {[1, 2, 3].map(num => (
-                            <label key={num} className={`meal-chip ${shabbatDetails.meals?.includes(String(num)) ? 'active' : ''}`}>
-                                <input 
-                                    type="checkbox" 
-                                    checked={shabbatDetails.meals?.includes(String(num))} 
-                                    onChange={() => toggleMeal(num)} 
+            <div className="lux-cards-row">
+                <div className="lux-card lux-shabbat-card">
+                    <div className="lux-card-header">Shabbat Time</div>
+                    <div className="lux-card-content">
+                        <div className="lux-time-row">
+                            <input
+                                type="time"
+                                className="lux-time-input"
+                                value={shabbatDetails.time || ""}
+                                onChange={e => setShabbatDetails({ ...shabbatDetails, time: e.target.value })}
+                            />
+                        </div>
+                        <div className="lux-radio-row">
+                            <label className="lux-radio">
+                                <input
+                                    type="radio"
+                                    name="place"
+                                    value="בבית"
+                                    checked={shabbatDetails.place === "בבית"}
+                                    onChange={e => setShabbatDetails({ ...shabbatDetails, place: e.target.value })}
                                 />
-                                <span>סעודה {num === 1 ? "א'" : num === 2 ? "ב'" : "ג'"}</span>
+                                At Home
                             </label>
-                        ))}
+                            <label className="lux-radio">
+                                <input
+                                    type="radio"
+                                    name="place"
+                                    value="נוסעים"
+                                    checked={shabbatDetails.place === "נוסעים"}
+                                    onChange={e => setShabbatDetails({ ...shabbatDetails, place: e.target.value })}
+                                />
+                                Traveling
+                            </label>
+                            <label className="lux-radio">
+                                <input
+                                    type="radio"
+                                    name="place"
+                                    value="מארחים"
+                                    checked={shabbatDetails.place === "מארחים"}
+                                    onChange={e => setShabbatDetails({ ...shabbatDetails, place: e.target.value })}
+                                />
+                                Guests
+                            </label>
+                        </div>
+                        <div className="lux-checkbox-row">
+                            <label className="lux-checkbox">
+                                <input
+                                    type="checkbox"
+                                    checked={shabbatDetails.meals?.includes("1")}
+                                    onChange={() => toggleMeal(1)}
+                                />
+                                First Meal
+                            </label>
+                            <label className="lux-checkbox">
+                                <input
+                                    type="checkbox"
+                                    checked={shabbatDetails.meals?.includes("2")}
+                                    onChange={() => toggleMeal(2)}
+                                />
+                                Second Meal
+                            </label>
+                            <label className="lux-checkbox">
+                                <input
+                                    type="checkbox"
+                                    checked={shabbatDetails.meals?.includes("3")}
+                                    onChange={() => toggleMeal(3)}
+                                />
+                                Third Meal
+                            </label>
+                        </div>
+                        <button className="lux-submit-btn" onClick={handleCalculate}>
+                            Submit
+                        </button>
                     </div>
                 </div>
-
-                <div style={{ textAlign: 'center', marginTop: '20px' }}>
-                    <button className="add-trigger-btn" onClick={handleCalculate}>
-                        קבל תוכנית שבת
-                    </button>
-                </div>
-            </div>
 
             {isSubmitted && (
-                <div className="dashboard-grid">
-                    <section className="home-section-card">
-                        <h2>🍲 בישולים ({remaining.length})</h2>
-                        <ul className="mini-list full-list">
-                            {remaining.length > 0 ? remaining.map(r => (
-                                <li key={r.id} className="home-item-fade"><span>{r.name}</span></li>
-                            )) : <p className="all-done-text">הכל מוכן! ✨</p>}
-                        </ul>
-                        <Link to="/edit-cook" className="styled-link">✏️ לניהול המלא</Link>
-                    </section>
-
-                    <section className="home-section-card">
-                        <h2>🛒 קניות ({visibleShoping.length})</h2>
-                        <ul className="mini-list full-list">
-                            {visibleShoping.length > 0 ? visibleShoping.map(s => (
-                                <li key={s.id} className="home-item-fade">{s.name}</li>
-                            )) : <p className="all-done-text">אין קניות נדרשות</p>}
-                        </ul>
-                        <Link to="/edit-shoping" className="styled-link">🛍️ לניהול קניות</Link>
-                    </section>
-
-                    <section className="home-section-card">
-                        <h2>📋 משימות ({visibleTasks.length})</h2>
-                        <ul className="mini-list full-list">
-                            {visibleTasks.length > 0 ? visibleTasks.map(t => (
-                                <li key={t.id} className="home-item-fade">{t.title}</li>
-                            )) : <p className="all-done-text">הכל בוצע! ✨</p>}
-                        </ul>
-                        <Link to="/task-list" className="styled-link">✏️ לניהול משימות</Link>
-                    </section>
+                <div className="lux-card lux-prep-card">
+                    <div className="lux-card-header lux-prep-header">The remaining preparations</div>
+                    <div className="lux-prep-grid">
+                        <div className="lux-prep-col">
+                            <div className="lux-prep-col-header">Tasks</div>
+                            <ul className="lux-prep-list">
+                                {visibleTasks.length > 0 ? visibleTasks.map(t => (
+                                    <li key={t.id} className="lux-prep-item">{t.title}</li>
+                                )) : <li className="lux-prep-item lux-done">All done!</li>}
+                            </ul>
+                        </div>
+                        <div className="lux-prep-col">
+                            <div className="lux-prep-col-header">Cooks</div>
+                            <ul className="lux-prep-list">
+                                {remaining.length > 0 ? remaining.map(r => (
+                                    <li key={r.id} className="lux-prep-item">{r.name}</li>
+                                )) : <li className="lux-prep-item lux-done">All ready!</li>}
+                            </ul>
+                        </div>
+                        <div className="lux-prep-col">
+                            <div className="lux-prep-col-header">Shopping</div>
+                            <ul className="lux-prep-list">
+                                {visibleShoping.length > 0 ? visibleShoping.map(s => (
+                                    <li key={s.id} className="lux-prep-item">{s.name}</li>
+                                )) : <li className="lux-prep-item lux-done">No shopping needed</li>}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             )}
+            </div>
         </div>
+
     );
 };

@@ -1,113 +1,125 @@
 /* --- פונטים ומשתנים --- */
-@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Assistant:wght@400;700&display=swap');
 
 :root {
-  --primary-dark: #2c3e50;
-  --accent-color: #d4af37; /* זהב שבת */
-  --text-color: #2c3e50;
-  --glass-bg: rgba(255, 255, 255, 0.95);
-  --font-main: 'Assistant', sans-serif;
+  --lux-gold: #d4af37;
+  --lux-mocha: #8d6748;
+  --lux-beige: #f7f3ec;
+  --lux-brown: #5a3a1b;
+  --lux-bg-glass: rgba(255, 245, 225, 0.82);
+  --lux-bg-glass-strong: rgba(255, 245, 225, 0.96);
+  --lux-border-radius: 22px;
+  --lux-shadow: 0 8px 32px 0 rgba(90, 58, 27, 0.10);
+  --lux-font-main: 'Montserrat', 'Assistant', Arial, sans-serif;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  background: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=2000') no-repeat center center fixed;
-  background-size: cover;
-  font-family: var(--font-main);
-  direction: rtl;
+.lux-header {
+  width: 100%;
+  background: var(--lux-bg-glass-strong);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--lux-shadow);
+  border-bottom: 2px solid var(--lux-gold);
+  padding: 0.5rem 0;
+  position: relative;
+  z-index: 10;
 }
 
-/* --- המבנה שביקשת עם דגש על כותרת גדולה --- */
-.header {
-  background-color: var(--glass-bg);
-  padding: 0.5rem 2rem; /* צמצום גובה ה-Header */
-  box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-  margin-bottom: 2rem;
-  border-bottom: 2px solid var(--accent-color);
-}
-
-.nav-menu {
+.lux-header-inner {
   display: flex;
-  align-items: center; /* שומר על הכל בקו ישר אחד */
-  justify-content: center;
-  gap: 20px; /* צמצום המרווחים בין הכפתורים */
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-/* כותרת שבת קודש - גדולה ובולטת */
-.nav-menu h1 {
-  margin: 0;
-  margin-left: 50px; /* רווח מהכפתורים */
-  font-size: 4.5rem; /* הגדלה משמעותית של הכותרת */
-  font-weight: 800;
-  line-height: 1;
-  white-space: nowrap; /* מילה ליד מילה בשורה אחת */
-  background: linear-gradient(135deg, var(--primary-dark) 30%, var(--accent-color) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  padding-left: 25px;
-  border-left: 4px solid var(--accent-color);
-}
-
-/* כפתורי הניווט - קטנים ועדינים */
-.nav-menu a {
-  text-decoration: none;
-  color: var(--text-color);
-  font-size: 0.95rem; /* הקטנת הכיתוב בכפתורים */
-  font-weight: 600;
-  padding: 5px 12px;
-  border-radius: 4px;
-  transition: all 0.3s;
-  white-space: nowrap;
-}
-
-.nav-menu a:hover {
-  background-color: rgba(212, 175, 55, 0.1);
-  color: var(--accent-color);
-}
-
-/* האפקט מתחת לקישור - עדין יותר */
-.nav-menu a::after {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 2px;
-  bottom: 0;
-  right: 12px;
-  background-color: var(--accent-color);
-  transition: width 0.3s;
-}
-
-.nav-menu a:hover::after {
-  width: calc(100% - 24px);
-}
-
-/* --- עיצוב תוכן העמוד (שורות הבישולים/קניות) --- */
-li, .shop-item, .task-item {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  background: white;
-  margin-bottom: 10px;
-  padding: 12px 30px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
 }
 
-/* טקסט הפריטים - ברור וגדול */
-.item-name, span {
-  font-size: 1.25rem;
-  font-weight: 600;
+.lux-header-left {
+  display: flex;
+  align-items: center;
 }
 
-/* כפתורי פעולה בתוך השורות - קטנים וקומפקטיים */
-button {
-  padding: 4px 12px;
-  font-size: 0.9rem;
-  border-radius: 4px;
-  border: none;
+.lux-logo {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  object-fit: contain;
+  background: linear-gradient(135deg, var(--lux-gold) 30%, var(--lux-beige) 100%);
+  box-shadow: 0 2px 12px rgba(212, 175, 55, 0.10);
+  border: 2px solid var(--lux-gold);
+}
+
+.lux-header-right {
+  display: flex;
+  align-items: center;
+}
+
+.lux-nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.lux-nav-menu li {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.lux-nav-menu a {
+  text-decoration: none;
+  color: var(--lux-brown);
+  font-family: var(--lux-font-main);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 8px 18px;
+  border-radius: 12px;
+  transition: background 0.2s, color 0.2s;
+  background: none;
+}
+
+.lux-nav-menu a:hover {
+  background: var(--lux-gold);
+  color: #fff;
+}
+
+.lux-hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
   cursor: pointer;
+  margin-right: 12px;
+}
+.lux-hamburger span {
+  display: block;
+  width: 28px;
+  height: 4px;
+  background: var(--lux-brown);
+  border-radius: 3px;
+  margin: 3px 0;
+  transition: all 0.3s;
+}
+
+@media (max-width: 700px) {
+  .lux-header-inner {
+    padding: 0 1rem;
+  }
+  .lux-logo {
+    width: 44px;
+    height: 44px;
+  }
+  .lux-nav-menu {
+    gap: 16px;
+  }
+  .lux-nav-menu a {
+    font-size: 0.95rem;
+    padding: 7px 10px;
+  }
 }
